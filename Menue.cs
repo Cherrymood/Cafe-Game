@@ -1,6 +1,7 @@
 private class Menue
 {
     { 
+        // name of dish and time to return to customer
         private Dictionary MenueKitchen = new Dictionary <string, int> {
             {"Soup", 10},
             {"Meat", 15},
@@ -14,5 +15,8 @@ private class Menue
             {"Juice", 2},
             {"Cocktail", 5},
         };
+
+        MenueKitchen.Add("Cheese plate", 3);
+        MenueBar.Add("Sparkling", 1);
     }
 }
