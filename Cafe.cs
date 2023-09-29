@@ -1,12 +1,14 @@
-public class Cafe
+private class Cafe
 {
-    private Customer _customer;
-    private Kitchen _kitchen;
-    private Workers _workers;
-    private string _order;
-
-    public Cafe(string order)
+    private int _dayIncome;
+    
+    public Cafe()
     {
-        this._order = order;
+        Console.WriteLine("Welcome to our Cafe");
+    }
+
+    private void StartGame
+    {
+        
     }
 }
