@@ -9,14 +9,10 @@ private class Customers
     public Customer()
     {
         Console.WriteLine("Welcome to our customer! Here is our menue.");
-        var menue = new Menue();
-        this._menue = menue;
-        var preparingTime = new Kitchen();
-        this._preparingTime = preparingTime;
+        _menue = new Menue();
+        _preparingTime = new Kitchen();
         var tips =  menue.menue(key) * 0,05;
-        var refuseWait = false;
-        this._refuseWait = refuseWait;
-    
+        _refuseWait = false;
     } 
     
     private string MakeOrder(Menue menue)
