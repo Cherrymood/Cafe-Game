@@ -1,23 +1,35 @@
 private class Customers
 {
-    private string _mood;
     private int _tips;
-    private int _waitTime = 20;
     private bool _refuseWait;
-    private Dictionary _menue;
+    private Menue _menue;
+    private Kitchen _prepareTime;
 
-    public Customer(Dictionary menue)
+    public Customer(Menue menue)
     {
         Console.WriteLine("Welcome to our customer");
         this._menue = menue;
     } 
     
-    private string MakeOrder(Menue menue)
+    private Menue MakeOrderKitchen(Menue menue)
     {
         Random choice = new Random();
-        var randomValue = menue.MenueBar[choice.Next(0, menue.Count)];
+        var randomValue2 = menue.MenueKitchen[choice.Next];
+
+        return randomValue1 + randomValue2;
+    }
+
+    private int WaitTime()
+    {
+        Random rnd = new Random();
+        var WaitTime = rnd.Next(0, 12);
+
+
+
 
     }
+
+
 
 
 }
