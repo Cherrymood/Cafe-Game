@@ -3,6 +3,7 @@ private class Customers
     private int _tips;
     private bool _refuseWait;
     private Menue _menue;
+    private string _key;
 
     public Customer()
     {
@@ -17,18 +18,14 @@ private class Customers
         Random rand = new Random();
         List<TValue> keys = Enumerable.ToList(menue.Menue.Keys);
         int size = menue.Menue.Count;
+        this._key = var key = keys[rand.Next(size)];
     
-        return keys[rand.Next(size)];
+        return key;
 }
 
-    private int WaitTime()
+    private int WaitTime(string key)
     {
-        Random rnd = new Random();
-        var WaitTime = rnd.Next(0, 12);
-
-
-
-
+         
     }
 
 
