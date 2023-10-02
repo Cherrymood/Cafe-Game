@@ -11,19 +11,19 @@ private class Customers
         Console.WriteLine("Welcome to our customer! Here is our menue.");
         _menue = new Menue();
         _preparingTime = new Kitchen();
-        var tips =  menue.menue(key) * 0,05;
+        _tips =  menue.menue(key) * 0,05;
         _refuseWait = false;
     } 
     
     private string MakeOrder(Menue menue)
     {
         Random rand = new Random();
-        List<TValue> keys = Enumerable.ToList(menue.menue.Keys);
-        int size = menue.menue.Count;
-        this._key = var key = keys[rand.Next(size)];
-        Console.WriteLine("Thank you, for your order. The waiting time is {0}, and the cost will be {1}", preparingTime.menueTime(key), menue.menue(key));
+        List<TValue> keys = Enumerable.ToList(_menue.menue.Keys);
+        int size = _menue.menue.Count;
+        _key = keys[rand.Next(size)];
+        Console.WriteLine("Thank you, for your order. The waiting time is {0}, and the cost will be {1}", _preparingTime.menueTime(_key), _menue.menue(_key));
     
-        return key;
+        return _key;
 }
 
     private int Payment(string key)
@@ -31,15 +31,15 @@ private class Customers
         Random r = new Random(); // could i initialize it only in constructor and use it in all methods?
         int wait = r.Next(0, 12);
 
-        if (wait == preparingTime.menueTime(key))
+        if (wait == _preparingTime.menueTime(_key))
         {
             Console.WriteLine("Thank you. Here you are my money for my order."
 
-            return menue.menue(key) + tips;
+            return _menue.menue(_key) + _tips;
         }
         else
         {
-            refuseWait = true;
+            _refuseWait = true;
 
             Console.WriteLine("Thank you, I am in hurry. I can not wait anymore"
 
