@@ -1,5 +1,0 @@
-/Users/valeriia/PycharmProjects/Cafe-App/obj/Debug/net7.0/Cafe-App.csproj.AssemblyReference.cache
-/Users/valeriia/PycharmProjects/Cafe-App/obj/Debug/net7.0/Cafe-App.GeneratedMSBuildEditorConfig.editorconfig
-/Users/valeriia/PycharmProjects/Cafe-App/obj/Debug/net7.0/Cafe-App.AssemblyInfoInputs.cache
-/Users/valeriia/PycharmProjects/Cafe-App/obj/Debug/net7.0/Cafe-App.AssemblyInfo.cs
-/Users/valeriia/PycharmProjects/Cafe-App/obj/Debug/net7.0/Cafe-App.csproj.CoreCompileInputs.cache
