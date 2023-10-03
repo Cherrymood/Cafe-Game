@@ -8,6 +8,7 @@ class Menue
 
             this._menuePrice = menuePrice;
             this._menueTime = menueTime;
+        }
 
             // name of dish and cost
         public Dictionary menuePrice = new Dictionary <string, int> {
@@ -36,6 +37,4 @@ class Menue
             {"Cocktail", 7},
             {"Nothing", 0}
         };
-
-        }
 }

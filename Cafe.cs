@@ -8,7 +8,7 @@ class Cafe
     private Menue _menue;
 
     
-    public Cafe(int level)
+    public Cafe()
     {
         this._level = level;
         Console.WriteLine("Welcome to our Cafe");
@@ -17,7 +17,7 @@ class Cafe
         _menue = new Menue();
     }
 
-    public void StartGame()
+    public void StartGame(int level)
     {
         for (int i = 0; i <= _amountCustomers; i++)
         {
@@ -30,7 +30,7 @@ class Cafe
 
         if (dayIncomeGame >= _dayIncome)
         {
-            Console.WriteLine("You win!");
+            Console.WriteLine("You win! Choose next level");
         }
         else
         {
