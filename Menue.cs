@@ -1,16 +1,16 @@
 class Menue
 {
-        private Dictionary<string, int> _menue;
+        private Dictionary<string, int> _menuePrice;
         private Dictionary<string, int> _menueTime;
 
         public Menue()
         {
 
-            this._menue = menue;
+            this._menuePrice = menuePrice;
             this._menueTime = menueTime;
 
             // name of dish and cost
-        public Dictionary menue = new Dictionary <string, int> {
+        public Dictionary menuePrice = new Dictionary <string, int> {
             {"Soup", 10},
             {"Meat", 15},
             {"Snaks", 2},
