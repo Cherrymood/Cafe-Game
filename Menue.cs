@@ -1,17 +1,12 @@
 class Menue
 {
-        private Dictionary<string, int> _menuePrice;
-        private Dictionary<string, int> _menueTime;
+        public Dictionary<string, int> menuePrice;
+        public Dictionary<string, int> menueTime;
 
         public Menue()
         {
 
-            this._menuePrice = menuePrice;
-            this._menueTime = menueTime;
-        }
-
-            // name of dish and cost
-        public Dictionary menuePrice = new Dictionary <string, int> {
+            this.menuePrice = new Dictionary<string, int> {
             {"Soup", 10},
             {"Meat", 15},
             {"Snaks", 2},
@@ -22,10 +17,8 @@ class Menue
             {"Juice", 2},
             {"Cocktail", 5},
             {"Nothing", 0}
-        };
-
-        // name of dish and time
-        public Dictionary menueTime = new Dictionary <string, int> {
+            };
+            this.menueTime = new Dictionary<string, int> {
             {"Soup", 5},
             {"Meat", 6},
             {"Snaks", 2},
@@ -36,5 +29,8 @@ class Menue
             {"Juice", 6},
             {"Cocktail", 7},
             {"Nothing", 0}
-        };
+            };
+        }
+
+         
 }

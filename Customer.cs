@@ -7,30 +7,31 @@ class Customer
     public Customer()
     {
         Console.WriteLine("Here is our menue.");
-        this._menue = menue;
+        
         menue = new Menue();
+        this._menue = menue;
+        var key = "";
         this._key = key;
-        key = "";
         _tips =  1;
     } 
     
-    public string MakeOrder()
+    public string MakeOrder(Menue menue)
     {
         Random rand = new Random();
-        List<string> keys = Enumerable.ToList(menue.menuePrice.keys);
-        int size = menue.menuePrice.Count;
+        List<string> keys = Enumerable.ToList(menue.menuePrice.Keys);
+        int size = keys.Count;
         key = keys[rand.Next(size)];
         Console.WriteLine("Thank you, for your order. The waiting time is {0}, and the cost will be {1}", menue.menueTime(key), menue.menuePrice(key));
     
         return key;
     }
 
-    public int Payment()
+    public int Payment(string key)
     {
         Random r = new Random(); // could i initialize it only in constructor and use it in all methods?
         int wait = r.Next(0, 12);
 
-        if (wait == menue.menueTime(_key))
+        if (wait == menue.menueTime(key))
         {
             Console.WriteLine("Thank you. Here you are my money for my order.");
 
