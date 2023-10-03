@@ -19,7 +19,7 @@ class Customer
         List<string> keys = Enumerable.ToList(menue.menuePrice.Keys);
         int size = keys.Count;
         key = keys[rand.Next(size)];
-        Console.WriteLine("Thank you, for your order. The waiting time is {0}, and the cost will be {1}", menue.menueTime(key), menue.menuePrice(key));
+        Console.WriteLine("Thank you, for your order. The waiting time is {0}, and the cost will be {1}", menueTime(key), menuePrice(key));
     
         return key;
     }
