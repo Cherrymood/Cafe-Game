@@ -3,6 +3,7 @@
     
     static public void Main(String[] args)
     {
-        Cafe "Polyakova`s" = new Cafe();
+        Cafe Polyakova = new Cafe();
+        Polyakova.StartGame();
     }
 }
