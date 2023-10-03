@@ -1,18 +1,16 @@
 class Customer
 {
-    private int _tips;
-    private string _key;
-    private Menue _menue;
+    public int tips;
+    public string key;
+    public Menue menue;
 
     public Customer()
     {
         Console.WriteLine("Here is our menue.");
         
         menue = new Menue();
-        this._menue = menue;
-        var key = "";
-        this._key = key;
-        _tips =  1;
+        key = "";
+        tips =  1;
     } 
     
     public string MakeOrder(Menue menue)
@@ -35,7 +33,7 @@ class Customer
         {
             Console.WriteLine("Thank you. Here you are my money for my order.");
 
-            return menue.menuePrice(key) + _tips;
+            return menue.menuePrice(key) + tips;
         }
         else
         {

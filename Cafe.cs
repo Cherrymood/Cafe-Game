@@ -1,24 +1,20 @@
 class Cafe
 {
     private int _dayIncome;
-    private int _level;
-    private int _amountCustomers;
-    private Customer _customer;
-    private Menue _menue;
+    public int level;
+    public int amountCustomers;
+    public Customer newCustomer;
+    public Menue menue;
 
     
     public Cafe()
     {
         Console.WriteLine("Welcome to our Cafe");
 
-        int level = 1;
-        this._level = level;
-        Menue menue = new Menue();
-        this._menue = menue;
-        Customer newCostomer = new Customer();
-        this._customer = newCostomer;
-        int amountCustomers = 3 + (level + 1)
-        this._amountCustomers = amountCustomers;
+        level = 1;
+        menue = new Menue();
+        newCustomer = new Customer();
+        amountCustomers = 3 + (level + 1);
         _dayIncome = level * 5;
     }
 
@@ -28,8 +24,8 @@ class Cafe
         {
             int dayIncomeGame = 0;
         
-            var customerOrder = newCostomer.MakeOrder(menue);
-            dayIncomeGame += newCostomer.Payment(customerOrder);
+            var customerOrder = newCustomer.MakeOrder(menue);
+            dayIncomeGame += newCustomer.Payment(customerOrder);
         }
 
         if (dayIncomeGame >= _dayIncome)
