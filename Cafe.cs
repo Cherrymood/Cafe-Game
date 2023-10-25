@@ -20,7 +20,7 @@ class Cafe
     {
         Level++;
         AmountCustomers = 3 + (Level + 1);
-        _dayIncome = Level * 3;
+        _dayIncome = Level * 15;
     }
 
     public void StartGame()
