@@ -3,15 +3,15 @@ class Cafe
     private int _dayIncome;
     public int level;
     public int amountCustomers;
-    public Customer newCustomer;
-    public Menue menue;
+    public Customer customer;
+    public Menu menu;
 
     public Cafe()
     {
         Console.WriteLine("Welcome to our Cafe");
         level = 1;
-        menue = new Menue();
-        newCustomer = new Customer();
+        menu = new Menu();
+        customer = new Customer(); // Create a single customer instance
         amountCustomers = 3 + (level + 1);
         _dayIncome = level * 5;
     }
@@ -22,8 +22,8 @@ class Cafe
         
         for (int i = 1; i <= amountCustomers; i++)
         {
-            var customerOrder = newCustomer.MakeOrder(menue);
-            dayIncomeGame += newCustomer.Payment(customerOrder);
+            var customerOrder = customer.MakeOrder();
+            dayIncomeGame += customer.Payment();
         }
 
         if (dayIncomeGame >= _dayIncome * amountCustomers)

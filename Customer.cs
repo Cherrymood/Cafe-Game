@@ -1,48 +1,49 @@
 class Customer
 {
-    public int tips;
-    public string key;
-    public Menue menue;
+    private int tips;
+    private string key;
+    private Menu menu; // Corrected the class name to "Menu"
+    private Random random;
 
     public Customer()
     {
-        Console.WriteLine("Here is our menue.");
-        
-        menue = new Menue();
+        Console.WriteLine("Here is our menu.");
+        menu = new Menu();
         key = "";
-        tips =  1;
-    } 
-    
-    public string MakeOrder(Menue menue)
+        tips = 1;
+        random = new Random();
+    }
+
+    public string MakeOrder()
     {
-        Random rand = new Random();
-        List<string> keys = Enumerable.ToList(menue.menuePrice.Keys);
+        List<string> keys = Enumerable.ToList(menu.menuPrice.Keys);
         int size = keys.Count;
-        key = keys[rand.Next(size)];
-        Console.WriteLine("Thank you, for your order. The waiting time is {0}, and the cost will be {1}", menue.menueTime.GetValueOrDefault(key), menue.menuePrice.GetValueOrDefault(key));
-    
+        key = keys[random.Next(size)];
+        Console.WriteLine("Thank you for your order. The waiting time is {0}, and the cost will be {1}", menu.menuTime.GetValueOrDefault(key), menu.menuPrice.GetValueOrDefault(key));
         return key;
     }
 
-    public int Payment(string key)
+    public int Payment()
     {
-        Random r = new Random(); // could i initialize it only in constructor and use it in all methods?
-        int wait = r.Next(0, 12);
+        int wait = random.Next(0, 12);
 
-        if (wait == menue.menueTime.GetValueOrDefault(key))
+        if (menu.menuTime.TryGetValue(key, out int time))
         {
-            Console.WriteLine("Thank you. Here you are my money for my order.");
-
-            return menue.menuePrice.GetValueOrDefault(key) + tips;
+            if (wait == time)
+            {
+                Console.WriteLine("Thank you. Here is my money for my order.");
+                return menu.menuPrice[key] + tips;
+            }
+            else
+            {
+                Console.WriteLine("Thank you, but I am in a hurry. I cannot wait any longer.");
+                return 0;
+            }
         }
         else
         {
-
-            Console.WriteLine("Thank you, I am in hurry. I can not wait anymore");
-
+            Console.WriteLine("The selected item is not on the menu.");
             return 0;
         }
-
     }
-
 }
