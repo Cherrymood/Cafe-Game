@@ -10,13 +10,14 @@ class Customer
     {
         Console.WriteLine("Here is our menu.");
         menu = new Menu();
-        keys = new List<string>();
         tips = 1;
         random = new Random();
     }
 
     public void MakeOrder()
     {
+        keys = new List<string>();
+        
         while (true)
         {
             Console.WriteLine("Menu:");
