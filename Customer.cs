@@ -25,7 +25,7 @@ class Customer
 
     public int Payment()
     {
-        int wait = random.Next(0, 12);
+        int wait = random.Next(0, 20);
 
         if (menu.menuTime.TryGetValue(key, out int time))
         {

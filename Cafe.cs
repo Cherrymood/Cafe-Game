@@ -1,38 +1,47 @@
 class Cafe
 {
     private int _dayIncome;
-    public int level;
-    public int amountCustomers;
-    public Customer customer;
-    public Menu menu;
+    public int Level { get; private set; } // Add a Level property
+    public int AmountCustomers;
+    public Customer Customer;
+    public Menu Menu;
 
     public Cafe()
     {
         Console.WriteLine("Welcome to our Cafe");
-        level = 1;
-        menu = new Menu();
-        customer = new Customer(); // Create a single customer instance
-        amountCustomers = 3 + (level + 1);
-        _dayIncome = level * 5;
+        Level = 1; // Start at level 1
+        Menu = new Menu();
+        Customer = new Customer();
+        AmountCustomers = 3 + (Level + 1);
+        _dayIncome = Level * 3;
+    }
+
+    // Method to increase the level
+    public void IncreaseLevel()
+    {
+        Level++; // Increment the level
+        AmountCustomers = 3 + (Level + 1); // Adjust the number of customers based on the new level
+        _dayIncome = Level * 3; // Adjust the income goal based on the new level
     }
 
     public void StartGame()
     {
         int dayIncomeGame = 0;
-        
-        for (int i = 1; i <= amountCustomers; i++)
+
+        for (int i = 1; i <= AmountCustomers; i++)
         {
-            var customerOrder = customer.MakeOrder();
-            dayIncomeGame += customer.Payment();
+            var customerOrder = Customer.MakeOrder();
+            dayIncomeGame += Customer.Payment();
         }
 
-        if (dayIncomeGame >= _dayIncome * amountCustomers)
+        if (dayIncomeGame >= _dayIncome * AmountCustomers)
         {
-            Console.WriteLine("You win! Choose the next level");
+            Console.WriteLine("You win! Proceed to the next level.");
+            IncreaseLevel(); // Increase the level
         }
         else
         {
-            Console.WriteLine("You lost!");
+            Console.WriteLine("You lost! You can try again at the current level.");
         }
     }
 }
