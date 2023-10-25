@@ -1,7 +1,7 @@
 class Cafe
 {
     private int _dayIncome;
-    public int Level { get; private set; } // Add a Level property
+    public int Level { get; private set; }
     public int AmountCustomers;
     public Customer Customer;
     public Menu Menu;
@@ -9,19 +9,18 @@ class Cafe
     public Cafe()
     {
         Console.WriteLine("Welcome to our Cafe");
-        Level = 1; // Start at level 1
+        Level = 1;
         Menu = new Menu();
         Customer = new Customer();
         AmountCustomers = 3 + (Level + 1);
         _dayIncome = Level * 3;
     }
 
-    // Method to increase the level
     public void IncreaseLevel()
     {
-        Level++; // Increment the level
-        AmountCustomers = 3 + (Level + 1); // Adjust the number of customers based on the new level
-        _dayIncome = Level * 3; // Adjust the income goal based on the new level
+        Level++;
+        AmountCustomers = 3 + (Level + 1);
+        _dayIncome = Level * 3;
     }
 
     public void StartGame()
@@ -30,19 +29,28 @@ class Cafe
 
         for (int i = 1; i <= AmountCustomers; i++)
         {
-            Customer.MakeOrder();
-            dayIncomeGame += Customer.Payment();
+            int orderCost = Customer.MakeOrder();
+            dayIncomeGame += Customer.Payment(orderCost);
         }
 
         if (dayIncomeGame >= _dayIncome * AmountCustomers)
         {
             Console.WriteLine("You win! Proceed to the next level.");
-            IncreaseLevel(); // Increase the level
+            IncreaseLevel();
         }
         else
         {
             Console.WriteLine("You lost! You can try again at the current level.");
         }
-    }
 
+        // After the game, prompt the user to exit or continue.
+        Console.Write("Do you want to exit the game? (Y/N): ");
+        string exitChoice = Console.ReadLine();
+        
+        if (exitChoice.Trim().Equals("Y", StringComparison.OrdinalIgnoreCase))
+        {
+            Console.WriteLine("Thanks for playing. Goodbye!");
+            Environment.Exit(0); // Exit the application
+        }
+    }
 }
