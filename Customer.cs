@@ -23,7 +23,6 @@ class Customer
             foreach (var item in menu.menuPrice)
             {
                 Console.WriteLine($"{item.Key}: ${item.Value}");
-                keys.Append(item.Key);
             }
 
             Console.Write("Enter your order (or 'q' to quit): ");
@@ -32,7 +31,7 @@ class Customer
             if (order.ToLower() == "q")
                 break;
 
-            if (menuPrice.ContainsKey(order))
+            if (menu.menuPrice.ContainsKey(order))
             {
                 totalCost += menu.menuPrice[order];
                 keys.Add(order); // Add the ordered item to the list
@@ -42,39 +41,39 @@ class Customer
             {
                 Console.WriteLine("Invalid item. Please choose from the menu.");
             }
-            
         }
 
         Console.WriteLine($"Your total cost is: ${totalCost}");
         Console.WriteLine("Thank you for your order!");
     }
 
-    public int Payment()
-{
-    int wait = random.Next(0, 20);
-    int totalPayment = 0; // Accumulate payment
 
-    foreach (var k in keys)
+    public int Payment()
     {
-        if (menu.menuTime.TryGetValue(k, out int time))
+        int wait = random.Next(0, 20);
+        int totalPayment = 0; // Accumulate payment
+
+        foreach (var k in keys)
         {
-            if (wait >= time)
+            if (menu.menuTime.TryGetValue(k, out int time))
             {
-                Console.WriteLine("Thank you. Here is my money for my order.");
-                totalPayment += menu.menuPrice[k] + tips;
+                if (wait >= time)
+                {
+                    Console.WriteLine("Thank you. Here is my money for my order.");
+                    totalPayment += menu.menuPrice[k] + tips;
+                }
+                else
+                {
+                    Console.WriteLine("Thank you, but I am in a hurry. I cannot wait any longer.");
+                }
             }
             else
             {
-                Console.WriteLine("Thank you, but I am in a hurry. I cannot wait any longer.");
+                Console.WriteLine("The selected item is not on the menu.");
             }
         }
-        else
-        {
-            Console.WriteLine("The selected item is not on the menu.");
-        }
-    }
 
-    return totalPayment; // Return the total payment after the loop
-    
-    }
+        return totalPayment; // Return the total payment after the loop
+        
+        }
 }  
