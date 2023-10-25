@@ -30,7 +30,6 @@ class Cafe
 
         for (int i = 1; i <= AmountCustomers; i++)
         {
-            var customerOrder = Customer.MakeOrder();
             dayIncomeGame += Customer.Payment();
         }
 
@@ -44,4 +43,5 @@ class Cafe
             Console.WriteLine("You lost! You can try again at the current level.");
         }
     }
+
 }
