@@ -1,11 +1,11 @@
 
     class Customer{
-        
+
     private int tips;
     private List<string> keys;
     private Menu menu;
     private Random random;
-    private double totalCost;
+    private int totalCost;
 
     public Customer()
     {
@@ -16,7 +16,7 @@
         random = new Random();
     }
 
-    public double MakeOrder()
+    public int MakeOrder()
     {
         while (true)
         {
@@ -50,7 +50,7 @@
         return totalCost; // Return the total cost of the order
     }
 
-    public int Payment(double orderCost)
+    public int Payment(int orderCost)
     {
         int waitTotal = 0;
         int timeTotal = 0;
@@ -80,6 +80,5 @@
             return 0;
         }
     }
-}
 }
 
