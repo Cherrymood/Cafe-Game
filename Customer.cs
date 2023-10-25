@@ -50,28 +50,35 @@ class Customer
 
     public int Payment()
     {
-        int wait = random.Next(0, 20);
-        int totalPayment = 0; // Accumulate payment
+        int waitTotal = 0;
+        int timeTotal = 0;
+        int totalPayment = 0;
+
 
         foreach (var k in keys)
         {
             if (menu.menuTime.TryGetValue(k, out int time))
             {
-                if (wait >= time)
-                {
-                    Console.WriteLine("Thank you. Here is my money for my order.");
-                    totalPayment += menu.menuPrice[k] + tips;
-                }
-                else
-                {
-                    Console.WriteLine("Thank you, but I am in a hurry. I cannot wait any longer.");
-                }
+                int wait = random.Next(0, 15);
+                waitTotal += wait;
+                timeTotal += time;
+                totalPayment += menu.menuPrice[k] + tips;
             }
             else
             {
                 Console.WriteLine("The selected item is not on the menu.");
             }
         }
+        if (waitTotal >= timeTotal)
+                {
+                    Console.WriteLine("Thank you. Here is my money for my order.");
+                    
+                }
+                else
+                {
+                    Console.WriteLine("Thank you, but I am in a hurry. I cannot wait any longer.");
+                    return 0;
+                }
 
         return totalPayment; // Return the total payment after the loop
         

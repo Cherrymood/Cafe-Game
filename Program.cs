@@ -8,6 +8,7 @@
         {
             Console.WriteLine($"Level {cafe.Level}");
             cafe.StartGame();
+            cafe.IncreaseLevel();
         }
 
         Console.WriteLine("Congratulations! You've completed all levels.");

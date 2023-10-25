@@ -30,6 +30,7 @@ class Cafe
 
         for (int i = 1; i <= AmountCustomers; i++)
         {
+            Customer.MakeOrder();
             dayIncomeGame += Customer.Payment();
         }
 
