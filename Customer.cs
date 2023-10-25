@@ -17,7 +17,7 @@ class Customer
     public void MakeOrder()
     {
         keys = new List<string>();
-        
+
         while (true)
         {
             Console.WriteLine("Menu:");
@@ -81,6 +81,8 @@ class Customer
                     return 0;
                 }
 
+        key.Clear();
+        
         return totalPayment; // Return the total payment after the loop
         
         }
