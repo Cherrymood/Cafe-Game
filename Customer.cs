@@ -81,8 +81,8 @@ class Customer
                     return 0;
                 }
 
-        key.Clear();
-        
+        keys.Clear();
+
         return totalPayment; // Return the total payment after the loop
         
         }
