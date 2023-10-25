@@ -6,11 +6,9 @@ class Cafe
     public Customer newCustomer;
     public Menue menue;
 
-    
     public Cafe()
     {
         Console.WriteLine("Welcome to our Cafe");
-
         level = 1;
         menue = new Menue();
         newCustomer = new Customer();
@@ -18,19 +16,19 @@ class Cafe
         _dayIncome = level * 5;
     }
 
-    public void StartGame(int level)
+    public void StartGame()
     {
-        for (int i = 0; i <= amountCustomers; i++)
-        {
-            int dayIncomeGame = 0;
+        int dayIncomeGame = 0;
         
+        for (int i = 1; i <= amountCustomers; i++)
+        {
             var customerOrder = newCustomer.MakeOrder(menue);
             dayIncomeGame += newCustomer.Payment(customerOrder);
         }
 
-        if (dayIncomeGame >= _dayIncome)
+        if (dayIncomeGame >= _dayIncome * amountCustomers)
         {
-            Console.WriteLine("You win! Choose next level");
+            Console.WriteLine("You win! Choose the next level");
         }
         else
         {
