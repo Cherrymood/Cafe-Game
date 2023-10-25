@@ -1,5 +1,5 @@
 
-    class Customer{
+class Customer{
 
     private int tips;
     private List<string> keys;
@@ -18,6 +18,8 @@
 
     public int MakeOrder()
     {
+        totalCost = 0; // Reset totalCost for each customer
+        
         while (true)
         {
             Console.WriteLine("Menu:");
