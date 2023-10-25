@@ -29,7 +29,7 @@ class Customer
 
         if (menu.menuTime.TryGetValue(key, out int time))
         {
-            if (wait == time)
+            if (wait >= time)
             {
                 Console.WriteLine("Thank you. Here is my money for my order.");
                 return menu.menuPrice[key] + tips;
