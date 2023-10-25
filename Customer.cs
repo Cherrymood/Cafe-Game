@@ -9,15 +9,31 @@ class Customer
     public Customer()
     {
         Console.WriteLine("Here is our menu.");
+        keys = new List<string>();
         menu = new Menu();
         tips = 1;
         random = new Random();
     }
 
-    public void MakeOrder()
-    {
-        keys = new List<string>();
+    class Customer
+{
+    private int tips;
+    private List<string> keys;
+    private Menu menu;
+    private Random random;
+    private double totalCost;
 
+    public Customer()
+    {
+        Console.WriteLine("Here is our menu.");
+        menu = new Menu();
+        keys = new List<string>();
+        tips = 1;
+        random = new Random();
+    }
+
+    public double MakeOrder()
+    {
         while (true)
         {
             Console.WriteLine("Menu:");
@@ -30,12 +46,15 @@ class Customer
             string order = Console.ReadLine();
 
             if (order.ToLower() == "q")
+            {
+                Console.WriteLine($"Your total cost is: ${totalCost}");
                 break;
+            }
 
             if (menu.menuPrice.ContainsKey(order))
             {
                 totalCost += menu.menuPrice[order];
-                keys.Add(order); // Add the ordered item to the list
+                keys.Add(order);
                 Console.WriteLine($"Added {order} to your order. Total cost: ${totalCost}");
             }
             else
@@ -44,17 +63,13 @@ class Customer
             }
         }
 
-        Console.WriteLine($"Your total cost is: ${totalCost}");
-        Console.WriteLine("Thank you for your order!");
+        return totalCost; // Return the total cost of the order
     }
 
-
-    public int Payment()
+    public int Payment(double orderCost)
     {
         int waitTotal = 0;
         int timeTotal = 0;
-        int totalPayment = 0;
-
 
         foreach (var k in keys)
         {
@@ -63,27 +78,22 @@ class Customer
                 int wait = random.Next(0, 15);
                 waitTotal += wait;
                 timeTotal += time;
-                totalPayment += menu.menuPrice[k] + tips;
             }
             else
             {
                 Console.WriteLine("The selected item is not on the menu.");
             }
         }
+
         if (waitTotal >= timeTotal)
-                {
-                    Console.WriteLine("Thank you. Here is my money for my order.");
-                    
-                }
-                else
-                {
-                    Console.WriteLine("Thank you, but I am in a hurry. I cannot wait any longer.");
-                    return 0;
-                }
-
-        keys.Clear();
-
-        return totalPayment; // Return the total payment after the loop
-        
+        {
+            Console.WriteLine("Thank you. Here is my money for my order.");
+            return (int)(orderCost + tips);
         }
-}  
+        else
+        {
+            Console.WriteLine("Thank you, but I am in a hurry. I cannot wait any longer.");
+            return 0;
+        }
+    }
+}

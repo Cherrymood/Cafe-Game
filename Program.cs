@@ -4,7 +4,7 @@
     {
         Cafe cafe = new Cafe();
 
-        while (cafe.Level <= 3) // You can change the number of levels as needed
+        while (cafe.Level <= 2) // You can change the number of levels as needed
         {
             Console.WriteLine($"Level {cafe.Level}");
             cafe.StartGame();
