@@ -1,22 +1,6 @@
-class Customer
-{
-    private int tips;
-    private List<string> keys;
-    private Menu menu; // Corrected the class name to "Menu"
-    private Random random;
-    private double totalCost; // Added totalCost to keep track of the total order cost
 
-    public Customer()
-    {
-        Console.WriteLine("Here is our menu.");
-        keys = new List<string>();
-        menu = new Menu();
-        tips = 1;
-        random = new Random();
-    }
-
-    class Customer
-{
+    class Customer{
+        
     private int tips;
     private List<string> keys;
     private Menu menu;
@@ -97,3 +81,5 @@ class Customer
         }
     }
 }
+}
+
