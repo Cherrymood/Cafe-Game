@@ -15,7 +15,7 @@ class Customer
         random = new Random();
     }
 
-    public string MakeOrder()
+    public void MakeOrder()
     {
         while (true)
         {
