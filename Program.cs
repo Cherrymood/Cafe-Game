@@ -4,6 +4,6 @@
     static public void Main(String[] args)
     {
         Cafe Polyakova = new Cafe();
-        Polyakova.StartGame();
+        Polyakova.StartGame(1);
     }
 }
