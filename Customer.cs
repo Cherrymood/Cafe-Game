@@ -1,29 +1,30 @@
 
 class Customer{
 
-    private int tips;
-    private List<string> keys;
-    private Menu menu;
-    private Random random;
-    private int totalCost;
+    private int _tips;
+    private List<string> _keys;
+    private Kitchen _menu;
+    private Random _random;
+    private int _totalCost;
 
     public Customer()
     {
         Console.WriteLine("Here is our menu.");
-        menu = new Menu();
-        keys = new List<string>();
-        tips = 1;
-        random = new Random();
+        _menu = new Kitchen();
+        _keys = new List<string>();
+        _tips = 1;
+        _random = new Random();
+        _totalCost = 0;
     }
 
     public int MakeOrder()
     {
-        totalCost = 0; // Reset totalCost for each customer
+        _totalCost = 0; // Reset totalCost for each customer
         
         while (true)
         {
             Console.WriteLine("Menu:");
-            foreach (var item in menu.menuPrice)
+            foreach (var item in _menu.menuPrice)
             {
                 Console.WriteLine($"{item.Key}: ${item.Value}");
             }
@@ -33,15 +34,15 @@ class Customer{
 
             if (order.ToLower() == "q")
             {
-                Console.WriteLine($"Your total cost is: ${totalCost}");
+                Console.WriteLine($"Your total cost is: ${_totalCost}");
                 break;
             }
 
-            if (menu.menuPrice.ContainsKey(order))
+            if (_menu.menuPrice.ContainsKey(order, StringComparer.OrdinalIgnoreCase))
             {
-                totalCost += menu.menuPrice[order];
-                keys.Add(order);
-                Console.WriteLine($"Added {order} to your order. Total cost: ${totalCost}");
+                _totalCost += _menu.menuPrice[order];
+                _keys.Add(order);
+                Console.WriteLine($"Added {order} to your order. Total cost: ${_totalCost}");
             }
             else
             {
@@ -49,38 +50,7 @@ class Customer{
             }
         }
 
-        return totalCost; // Return the total cost of the order
-    }
-
-    public int Payment(int orderCost)
-    {
-        int waitTotal = 0;
-        int timeTotal = 0;
-
-        foreach (var k in keys)
-        {
-            if (menu.menuTime.TryGetValue(k, out int time))
-            {
-                int wait = random.Next(0, 15);
-                waitTotal += wait;
-                timeTotal += time;
-            }
-            else
-            {
-                Console.WriteLine("The selected item is not on the menu.");
-            }
-        }
-
-        if (waitTotal >= timeTotal)
-        {
-            Console.WriteLine("Thank you. Here is my money for my order.");
-            return (int)(orderCost + tips);
-        }
-        else
-        {
-            Console.WriteLine("Thank you, but I am in a hurry. I cannot wait any longer.");
-            return 0;
-        }
+        return _totalCost; // Return the total cost of the order
     }
 }
 

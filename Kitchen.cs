@@ -1,7 +1,7 @@
-class Menu
+class Kitchen
 {
-    public Dictionary<string, int> menuPrice;
-    public Dictionary<string, int> menuTime;
+    private Dictionary<string, int> menuPrice;
+    private Dictionary<string, int> menuTime;
 
     public Menu()
     {
