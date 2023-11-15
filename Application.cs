@@ -1,12 +1,12 @@
-class Cafe
+class Application
 {
     private int _dayIncome;
-    public int Level { get; private set; }
-    public int AmountCustomers;
-    public Customer Customer;
-    public Menu Menu;
+    private int Level { get; private set; }
+    private int AmountCustomers;
+    private Customer Customer;
+    private Menu Menu;
 
-    public Cafe()
+    public Application()
     {
         Console.WriteLine("Welcome to our Cafe");
         Level = 1;
