@@ -1,39 +1,34 @@
 class Application
 {
     private int _dayIncome;
-    private int Level { get; private set; }
-    private int AmountCustomers;
-    private Customer Customer;
-    private Menu Menu;
+    private int _level { get; private set; }
+    private int _amountCustomers;
+    private Customer _customer;
+    private Kitchen _menu;
+    private Cafe _cafe;
 
     public Application()
     {
         Console.WriteLine("Welcome to our Cafe");
-        Level = 1;
-        Menu = new Menu();
-        Customer = new Customer();
-        AmountCustomers = 3 + (Level + 1);
-        _dayIncome = Level * 3;
-    }
-
-    public void IncreaseLevel()
-    {
-        Level++;
-        AmountCustomers = 3 + (Level + 1);
-        _dayIncome = Level * 15;
+        _level = 1;
+        _menu = new Kitchen();
+        _customer = new Customer();
+        _amountCustomers = 3 + (_level + 1);
+        _dayIncome = _level * 3;
+        _amountCustomers = 3 + (_level + 1);
     }
 
     public void StartGame()
     {
         int dayIncomeGame = 0;
 
-        for (int i = 1; i <= AmountCustomers; i++)
+        for (int i = 1; i <= _amountCustomers; i++)
         {
-            int orderCost = Customer.MakeOrder();
-            dayIncomeGame += Customer.Payment(orderCost);
+            int orderCost = _customer.MakeOrder();
+            _dayIncomeGame += _cafe.Payment(orderCost);
         }
 
-        if (dayIncomeGame >= _dayIncome * AmountCustomers)
+        if (dayIncomeGame >= _dayIncome * _amountCustomers)
         {
             Console.WriteLine("You win! Proceed to the next level.");
             IncreaseLevel();
@@ -54,3 +49,4 @@ class Application
         }
     }
 }
+
