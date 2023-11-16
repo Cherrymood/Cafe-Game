@@ -1,6 +1,6 @@
 class Application
 {
-    private int _dayIncome;
+    private int _dayTarget;
     private int _level { get; private set; }
     private int _amountCustomers;
     private Customer _customer;
@@ -14,7 +14,7 @@ class Application
         _menu = new Kitchen();
         _customer = new Customer();
         _amountCustomers = 3 + (_level + 1);
-        _dayIncome = _level * 3;
+        _dayTarget = _level * 3;
         _amountCustomers = 3 + (_level + 1);
     }
 
@@ -28,13 +28,15 @@ class Application
             _dayIncomeGame += _cafe.Payment(orderCost);
         }
 
-        if (dayIncomeGame >= _dayIncome * _amountCustomers)
+        if (dayIncomeGame >= _dayTarget * _amountCustomers)
         {
             Console.WriteLine("You win! Proceed to the next level.");
+            dayIncomeGame = 0;
             IncreaseLevel();
         }
         else
         {
+            dayIncomeGame = 0;
             Console.WriteLine("You lost! You can try again at the current level.");
         }
 
