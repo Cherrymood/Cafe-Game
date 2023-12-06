@@ -18,18 +18,18 @@ class Application
     {
         while(true)
         {
-            Console.Write($"Enter your order (or 'q' to quit): ");
+            Console.WriteLine($"Enter your order (or 'q' to quit): ");
             string order = _customer.MakeOrders();
             int orderCost = _cafe.OrderDishPrice(order);
             
             if (order == "q")
             {
-                Console.Write($"Waiter: Thank you. Cafe earned {0}", _dayIncome);
+                Console.WriteLine($"Waiter: Thank you. Cafe earned {0}", _dayIncome);
                 break;
             }
             if (orderCost == 0)
             {
-                Console.Write($"Waiter: There is no such a dish in our menue");
+                Console.WriteLine($"Waiter: There is no such a dish in our menue");
             }
 
             int cookingTime = _cookingTime.OrderTime(order);
@@ -37,14 +37,14 @@ class Application
 
             if(cookingTime < custWait)
             {
-                Console.Write($"Customer: Yes I can wait");
+                Console.WriteLine($"Customer: Yes I can wait");
                 _dayIncome += orderCost;
             }
             else
             {
-                Console.Write($"Customer: No, Sorry. I am in a hurry. Bye");
-                Console.Write($"Waiter: Thank you. Cafe earned {0}", _dayIncome);
-                Console.Write($"----EndGame----");
+                Console.WriteLine($"Customer: No, Sorry. I am in a hurry. Bye");
+                Console.WriteLine($"Waiter: Thank you. Cafe earned {0}", _dayIncome);
+                Console.WriteLine($"----EndGame----");
                 break;
             }
         }

@@ -10,7 +10,7 @@ public class Customer
     }
     public string MakeOrders()
     {
-        Console.Write($"Waiter: Enter your order: ");
+        Console.WriteLine($"Waiter: Enter your order: ");
             
 
         string order = Console.ReadLine();
@@ -29,7 +29,7 @@ public class Customer
 
     public int WaitingTime()
     {
-        int waitTime = rn.Next(0, 15);
+        int waitTime = rn.Next(0, 16);
 
         return waitTime;
     }
