@@ -1,9 +1,9 @@
-class Kitchen
+public class Kitchen
 {
     private Dictionary<string, int> menuPrice;
     private Dictionary<string, int> menuTime;
 
-    public Menu()
+    public Kitchen()
     {
         this.menuPrice = new Dictionary<string, int>
         {
@@ -53,5 +53,21 @@ class Kitchen
             {"Milkshake", 4},
             {"Fish", 14}
         };
+    }
+
+    public void OrderDish(string dishName)
+    {
+        if (menuPrice.ContainsKey(dishName) && menuTime.ContainsKey(dishName))
+        {
+            int price = menuPrice[dishName];
+            int time = menuTime[dishName];
+
+            // Perform actions related to the order (e.g., print receipt, start preparation, etc.)
+            Console.WriteLine($"Ordered {dishName}. Price: {price}, Preparation Time: {time} minutes");
+        }
+        else
+        {
+            Console.WriteLine($"{dishName} is not on the menu.");
+        }
     }
 }
