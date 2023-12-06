@@ -5,27 +5,17 @@ class Cafe{
     {
         this.menuPrice = new Dictionary<string, int>
         {
-            {"Soup", 10},
-            {"Meat", 15},
-            {"Snacks", 2},
-            {"Salad", 5},
-            {"Pizza", 12},
-            {"Water", 1},
-            {"Hot drink", 5},
-            {"Juice", 2},
-            {"Cocktail", 5},
-            {"Burger", 8},
-            {"Pasta", 11},
-            {"Ice Cream", 4},
-            {"Sushi", 20},
-            {"Steak", 18},
-            {"Sandwich", 6},
-            {"Fries", 3},
-            {"Pancakes", 7},
-            {"Coffee", 3},
-            {"Tea", 2},
-            {"Milkshake", 4},
-            {"Fish", 14}
+            {"soup", 10},
+            {"meat", 15},
+            {"snacks", 2},
+            {"salad", 5},
+            {"pizza", 12},
+            {"water", 1},
+            {"hot drink", 5},
+            {"juice", 2},
+            {"cocktail", 5},
+            {"burger", 8},
+            {"pasta", 11},
         };
     }
 

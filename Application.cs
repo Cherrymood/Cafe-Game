@@ -1,54 +1,32 @@
 class Application
 {
-    private int _dayTarget;
-    private int _level { get; private set;}
-    private int _amountCustomers;
     private Customer _customer;
-    private Kitchen _menu;
     private Cafe _cafe;
+    private int _dailyIncome;
 
     public Application()
     {
         Console.WriteLine("Welcome to our Cafe");
-        _level = 1;
-        _menu = new Kitchen();
         _customer = new Customer();
-        _amountCustomers = 3 + (_level + 1);
-        _dayTarget = _level * 3;
-        _amountCustomers = 3 + (_level + 1);
+        _cafe = new Cafe();
     }
 
     public void StartGame()
     {
-        int dayIncomeGame = 0;
+        while(true)
+        {
+            string order = _customer.MakeOrders();
+            
+            if (order.ToLower() == "q")
+            {
+                Console.WriteLine("That's all. Thank you!");
+                break;
+            }
 
-        for (int i = 1; i <= _amountCustomers; i++)
-        {
-            int orderCost = _customer.MakeOrder();
-            _dayIncomeGame += _cafe.Payment(orderCost);
-        }
-
-        if (dayIncomeGame >= _dayTarget * _amountCustomers)
-        {
-            Console.WriteLine("You win! Proceed to the next level.");
-            dayIncomeGame = 0;
-            IncreaseLevel();
-        }
-        else
-        {
-            dayIncomeGame = 0;
-            Console.WriteLine("You lost! You can try again at the current level.");
+            _dailyIncome += _cafe.OrderDishPrice(order);
         }
 
-        // After the game, prompt the user to exit or continue.
-        Console.Write("Do you want to exit the game? (Y/N): ");
-        string exitChoice = Console.ReadLine();
-        
-        if (exitChoice.Trim().Equals("Y", StringComparison.OrdinalIgnoreCase))
-        {
-            Console.WriteLine("Thanks for playing. Goodbye!");
-            Environment.Exit(0); // Exit the application
-        }
+        Console.WriteLine("Your dayly income: {0}", _dailyIncome);
     }
 }
 
