@@ -26,19 +26,18 @@ class Cafe{
         }
     }
 
-    public int OrderDishPrice(string dishName)
+    public int OrderDishPrice(string order)
     {
-        if (menuPrice.ContainsKey(dishName))
+        if (menuPrice.ContainsKey(order))
         {
-            int price = menuPrice[dishName];
+            int price = menuPrice[order];
 
-            // Perform actions related to the order (e.g., print receipt, start preparation, etc.)
-            Console.WriteLine($"Ordered {dishName}. The price: {price} doll.");
+            Console.WriteLine($"Ordered {order}. The price: {price} doll.");
             return price;
         }
         else
         {
-            Console.WriteLine($"{dishName} is not on the menu.");
+            Console.WriteLine($"{order} is not on the menu.");
             return 0;
         }
     }

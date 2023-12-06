@@ -22,6 +22,7 @@ class Kitchen{
     public int PreperingTime(string order)
     {
         int time = timing[order];
+
         Console.WriteLine($"Ordered {order}. The time for cooking: {time} min.");
         
         return time;
