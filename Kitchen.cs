@@ -1,34 +1,12 @@
+using System.Diagnostics;
+
+[DebuggerDisplay($"{{{nameof(GetDebuggerDisplay)}(),nq}}")]
 public class Kitchen
 {
-    private Dictionary<string, int> menuPrice;
     private Dictionary<string, int> menuTime;
 
     public Kitchen()
     {
-        this.menuPrice = new Dictionary<string, int>
-        {
-            {"Soup", 10},
-            {"Meat", 15},
-            {"Snacks", 2},
-            {"Salad", 5},
-            {"Pizza", 12},
-            {"Water", 1},
-            {"Hot drink", 5},
-            {"Juice", 2},
-            {"Cocktail", 5},
-            {"Burger", 8},
-            {"Pasta", 11},
-            {"Ice Cream", 4},
-            {"Sushi", 20},
-            {"Steak", 18},
-            {"Sandwich", 6},
-            {"Fries", 3},
-            {"Pancakes", 7},
-            {"Coffee", 3},
-            {"Tea", 2},
-            {"Milkshake", 4},
-            {"Fish", 14}
-        };
         this.menuTime = new Dictionary<string, int>
         {
             {"Soup", 5},
@@ -54,20 +32,25 @@ public class Kitchen
             {"Fish", 14}
         };
     }
-
-    public void OrderDish(string dishName)
+    public int OrderDishTime(string dishName)
     {
-        if (menuPrice.ContainsKey(dishName) && menuTime.ContainsKey(dishName))
+        if (menuTime.ContainsKey(dishName))
         {
-            int price = menuPrice[dishName];
             int time = menuTime[dishName];
 
             // Perform actions related to the order (e.g., print receipt, start preparation, etc.)
-            Console.WriteLine($"Ordered {dishName}. Price: {price}, Preparation Time: {time} minutes");
+            Console.WriteLine($"Ordered {dishName}. Preparation Time: {time} minutes");
+            return time;
         }
         else
         {
             Console.WriteLine($"{dishName} is not on the menu.");
+            return 0;
         }
+    }
+
+    private string GetDebuggerDisplay()
+    {
+        return ToString();
     }
 }

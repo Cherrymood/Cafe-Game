@@ -1,38 +1,47 @@
 class Cafe{
-
-    private List<string> keys; // Assuming keys is a list in your context
-    private Kitchen _menu; // Assuming _menu is an instance of the Kitchen class
-    private Random random; // Assuming random is an instance of the Random class
-    private int _tips = 1; // Assuming tips is an int variable
-
-
-    public int Payment(int orderCost)
+   
+    private Dictionary<string, int> menuPrice;
+    public Cafe()
     {
-        int waitTotal = 0;
-        int timeTotal = 0;
-
-        foreach (var k in keys)
+        this.menuPrice = new Dictionary<string, int>
         {
-            if (_menu.menuTime.TryGetValue(k, out int time))
-            {
-                int wait = random.Next(0, 15);
-                waitTotal += wait;
-                timeTotal += time;
-            }
-            else
-            {
-                Console.WriteLine("The selected item is not on the menu.");
-            }
-        }
+            {"Soup", 10},
+            {"Meat", 15},
+            {"Snacks", 2},
+            {"Salad", 5},
+            {"Pizza", 12},
+            {"Water", 1},
+            {"Hot drink", 5},
+            {"Juice", 2},
+            {"Cocktail", 5},
+            {"Burger", 8},
+            {"Pasta", 11},
+            {"Ice Cream", 4},
+            {"Sushi", 20},
+            {"Steak", 18},
+            {"Sandwich", 6},
+            {"Fries", 3},
+            {"Pancakes", 7},
+            {"Coffee", 3},
+            {"Tea", 2},
+            {"Milkshake", 4},
+            {"Fish", 14}
+        };
+    }
 
-        if (waitTotal >= timeTotal)
+    public int OrderDishTime(string dishName)
+    {
+        if (menuPrice.ContainsKey(dishName))
         {
-            Console.WriteLine("Thank you. Here is my money for my order.");
-            return (int)(orderCost + tips);
+            int price = menuPrice[dishName];
+
+            // Perform actions related to the order (e.g., print receipt, start preparation, etc.)
+            Console.WriteLine($"Ordered {dishName}. The price: {price} doll.");
+            return price;
         }
         else
         {
-            Console.WriteLine("Thank you, but I am in a hurry. I cannot wait any longer.");
+            Console.WriteLine($"{dishName} is not on the menu.");
             return 0;
         }
     }
