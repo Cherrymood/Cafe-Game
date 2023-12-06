@@ -17,6 +17,11 @@ class Cafe{
             {"burger", 8},
             {"pasta", 11},
         };
+
+        foreach (var key in menuPrice.Keys)
+        {
+            Console.WriteLine(key);
+        }
     }
 
     public int OrderDishPrice(string dishName)
