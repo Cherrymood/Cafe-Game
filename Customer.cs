@@ -5,19 +5,31 @@ public class Customer
     private Random rn;
     public Customer()
     {
-        Console.WriteLine("Thank you");
+        Console.WriteLine($"Customer: Thank you");
         rn = new Random();
     }
     public string MakeOrders()
     {
-        string order = Console.ReadLine();
+        Console.WriteLine($"Waiter: Enter your order: ");
+            
 
-        return order;
+        string order = Console.ReadLine();
+        
+        if (!string.IsNullOrWhiteSpace(order))
+            
+            {
+                return order;
+            }
+        else
+            {
+                Console.WriteLine("Waiter: Invalid order. Please enter a valid order.");
+                return MakeOrders();
+            }
     }
 
     public int WaitingTime()
     {
-        int waitTime = rn.Next(0, 15);
+        int waitTime = rn.Next(0, 16);
 
         return waitTime;
     }
