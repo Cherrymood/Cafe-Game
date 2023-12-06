@@ -1,14 +1,24 @@
+using System.Runtime.Intrinsics.Arm;
+
 public class Customer
 {
+    private Random rn;
     public Customer()
     {
-        Console.WriteLine("Here is our menu.");
+        Console.WriteLine("Thank you");
+        rn = new Random();
     }
     public string MakeOrders()
     {
-            Console.Write("Enter your order (or 'q' to quit): ");
-            string order = Console.ReadLine();
+        string order = Console.ReadLine();
 
         return order;
+    }
+
+    public int WaitingTime()
+    {
+        int waitTime = rn.Next(0, 15);
+
+        return waitTime;
     }
 }

@@ -1,53 +1,52 @@
 class Application
 {
-    private int _dayTarget;
-    private int _level { get; private set;}
-    private int _amountCustomers;
     private Customer _customer;
-    private Kitchen _menu;
     private Cafe _cafe;
+    private int _dayIncome;
+    private Kitchen _cookingTime;
 
     public Application()
     {
         Console.WriteLine("Welcome to our Cafe");
-        _level = 1;
-        _menu = new Kitchen();
+        _cafe = new Cafe();
         _customer = new Customer();
-        _amountCustomers = 3 + (_level + 1);
-        _dayTarget = _level * 3;
-        _amountCustomers = 3 + (_level + 1);
+        _dayIncome = 0;
+        _cookingTime = new Kitchen();
     }
 
     public void StartGame()
     {
-        int dayIncomeGame = 0;
+        while(true)
+        {
+            Console.Write("Enter your order (or 'q' to quit): ");
+            string order = _customer.MakeOrders();
+            int orderCost = _cafe.OrderDishPrice(order);
+            
+            if (order == "q")
+            {
+                Console.Write("Thank you.");
+                Console.Write(_dayIncome);
+                break;
+            }
+            if (orderCost == 0)
+            {
+                Console.Write("There is no such a dish in our menue");
+            }
 
-        for (int i = 1; i <= _amountCustomers; i++)
-        {
-            int orderCost = _customer.MakeOrder();
-            _dayIncomeGame += _cafe.Payment(orderCost);
-        }
-
-        if (dayIncomeGame >= _dayTarget * _amountCustomers)
-        {
-            Console.WriteLine("You win! Proceed to the next level.");
-            dayIncomeGame = 0;
-            IncreaseLevel();
-        }
-        else
-        {
-            dayIncomeGame = 0;
-            Console.WriteLine("You lost! You can try again at the current level.");
-        }
-
-        // After the game, prompt the user to exit or continue.
-        Console.Write("Do you want to exit the game? (Y/N): ");
-        string exitChoice = Console.ReadLine();
-        
-        if (exitChoice.Trim().Equals("Y", StringComparison.OrdinalIgnoreCase))
-        {
-            Console.WriteLine("Thanks for playing. Goodbye!");
-            Environment.Exit(0); // Exit the application
+            int cookingTime = _cookingTime.OrderTime(order);
+            int custWait = _customer.WaitingTime();
+            if(cookingTime < custWait)
+            {
+                Console.Write("Yes I can wait");
+                _dayIncome += orderCost;
+            }
+            else
+            {
+                Console.Write("No, Sorry. I am in a hurry. Bye");
+                Console.Write(_dayIncome);
+                Console.Write("EndGame");
+                break;
+            }
         }
     }
 }
