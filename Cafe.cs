@@ -3,7 +3,7 @@ class Cafe{
     private Dictionary<string, int> menuPrice;
     public Cafe()
     {
-        this.menuPrice = new Dictionary<string, int>
+        menuPrice = new Dictionary<string, int>
         {
             {"soup", 10},
             {"meat", 15},
@@ -19,7 +19,7 @@ class Cafe{
             {"ice Cream", 4}
         };
 
-        Console.WriteLine("Here is our menu.");
+        Console.WriteLine($"Waiter: Here is our menu.");
         foreach (var key in menuPrice.Keys)
         {
             Console.WriteLine(key);
@@ -32,12 +32,12 @@ class Cafe{
             int price = menuPrice[order];
 
             // Perform actions related to the order (e.g., print receipt, start preparation, etc.)
-            Console.WriteLine($"Ordered {order}. The price: {price} doll.");
+            Console.WriteLine($"Waiter: Ordered {order}. The price: {price} doll.");
             return price;
         }
         else
         {
-            Console.WriteLine($"{order} is not on the menu.");
+            Console.WriteLine($"Waiter: {order} is not on the menu.");
             return 0;
         }
     }

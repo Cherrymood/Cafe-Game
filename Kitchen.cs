@@ -18,12 +18,13 @@ class Kitchen{
             {"pasta", 11},
             {"ice Cream", 4}
         };
-        Console.WriteLine("Kitchen! We have an order for you");
     }
     public int OrderTime(string order)
     {
+        Console.WriteLine($"Waiter: Kitchen! We have an order for you");
+
         int time = timePrepare[order];
-        Console.WriteLine($"Ordered {order}. The time for cooking: {time} min. Will you wait?");
+        Console.WriteLine($"Waiter: Ordered {order}. The time for cooking: {time} min. Will you wait?");
 
         return time;
     }
