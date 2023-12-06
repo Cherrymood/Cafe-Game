@@ -3,7 +3,7 @@ class Kitchen{
     private Dictionary<string, int> timePrepare;
     public Kitchen()
     {
-        this.timePrepare = new Dictionary<string, int>
+        timePrepare = new Dictionary<string, int>
         {
             {"soup", 10},
             {"meat", 15},
@@ -22,18 +22,9 @@ class Kitchen{
     }
     public int OrderTime(string order)
     {
-        if (timePrepare.ContainsKey(order))
-        {
-            int time = timePrepare[order];
+        int time = timePrepare[order];
+        Console.WriteLine($"Ordered {order}. The time for cooking: {time} min. Will you wait?");
 
-            // Perform actions related to the order (e.g., print receipt, start preparation, etc.)
-            Console.WriteLine($"Ordered {order}. The time for cooking: {time} min.");
-            return time;
-        }
-        else
-        {
-            Console.WriteLine($"{order} is not on the menu.");
-            return 0;
-        }
+        return time;
     }
 }
