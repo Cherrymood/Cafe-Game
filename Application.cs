@@ -3,6 +3,7 @@ class Application
     private Customer _customer;
     private Cafe _cafe;
     private int _dayIncome;
+    private Kitchen _cookingTime;
 
     public Application()
     {
@@ -10,6 +11,7 @@ class Application
         _cafe = new Cafe();
         _customer = new Customer();
         _dayIncome = 0;
+        _cookingTime = new Kitchen();
     }
 
     public void StartGame()
@@ -31,7 +33,20 @@ class Application
                 Console.Write("There is no such a dish in our menue");
             }
 
-            _dayIncome += orderCost;
+            int cookingTime = _cookingTime.OrderTime(order);
+            int custWait = _customer.WaitingTime();
+            if(cookingTime < custWait)
+            {
+                Console.Write("Yes I can wait");
+                _dayIncome += orderCost;
+            }
+            else
+            {
+                Console.Write("No, Sorry. I am in a hurry. Bye");
+                Console.Write(_dayIncome);
+                Console.Write("EndGame");
+                break;
+            }
         }
     }
 }
