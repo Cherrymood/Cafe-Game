@@ -29,7 +29,7 @@ class Cafe{
         };
     }
 
-    public int OrderDishTime(string dishName)
+    public int OrderDishPrice(string dishName)
     {
         if (menuPrice.ContainsKey(dishName))
         {
