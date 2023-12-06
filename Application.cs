@@ -1,7 +1,7 @@
 class Application
 {
     private int _dayTarget;
-    private int _level { get; private set; }
+    private int _level { get; private set;}
     private int _amountCustomers;
     private Customer _customer;
     private Kitchen _menu;
