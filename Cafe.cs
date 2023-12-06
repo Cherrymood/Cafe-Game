@@ -2,7 +2,7 @@ class Cafe{
    
     private Dictionary<string, int> menuPrice;
     public Cafe()
-    {
+    {   
         this.menuPrice = new Dictionary<string, int>
         {
             {"soup", 10},
@@ -18,6 +18,8 @@ class Cafe{
             {"pasta", 11},
         };
 
+        Console.WriteLine("Here is our menu.");
+        
         foreach (var key in menuPrice.Keys)
         {
             Console.WriteLine(key);

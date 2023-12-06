@@ -1,8 +1,10 @@
 public class Customer
 {
+    private Random random;
     public Customer()
     {
-        Console.WriteLine("Here is our menu.");
+        random = new Random();
+        Console.WriteLine("Hello could I have a menue?");
     }
     public string MakeOrders()
     {
@@ -11,5 +13,12 @@ public class Customer
             order.ToLower();
 
         return order;
+    }
+    public int WaitTime()
+    {
+        int waitTime = random.Next(0, 15);
+        Console.Write("I cannot wait more, than {0} min", waitTime);
+
+        return waitTime;
     }
 }
