@@ -18,13 +18,19 @@ class Cafe{
             {"pasta", 11},
             {"ice Cream", 4}
         };
-
+    }
+    public Dictionary<string, int> GiveMenue()
+    {
         Console.WriteLine($"Waiter: Here is our menu.");
+
         foreach (var key in menuPrice.Keys)
         {
             Console.WriteLine(key);
         }
+
+        return menuPrice;
     }
+    
     public int OrderDishPrice(string order)
     {
         if (menuPrice.ContainsKey(order))
