@@ -30,7 +30,21 @@ class Kitchen{
         return time;
     }
 
-    public string PrepareOrder(string order)
+    public string Confirmation(bool confirm, string order)
+    {
+        if(confirm)
+        {
+            Console.WriteLine($"Customer: Yes I can wait");
+            return PrepareOrder(order);
+        }
+
+        else
+        {
+            return null;
+        }
+    }
+
+    private string PrepareOrder(string order)
     {
         for(int i = 0; i <= timePrepare[order]*10; i++)
         {

@@ -30,4 +30,9 @@ public class Customer
 
         return waitTime;
     }
+
+    public int PayBill(int bill)
+    {
+        return bill;
+    }
 }

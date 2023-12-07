@@ -1,8 +1,13 @@
 class Cafe{
    
     private Dictionary<string, int> menuPrice;
+    private Kitchen _kitchen;
+    private Cafe _cafe;
     public Cafe()
     {
+        _kitchen = new Kitchen();
+        _cafe = new Cafe();
+
         menuPrice = new Dictionary<string, int>
         {
             {"soup", 10},
@@ -31,7 +36,22 @@ class Cafe{
         return menuPrice;
     }
     
-    public int OrderDishPrice(string order)
+    public int GetConfirmation(int customerWaitTime, int kitchenCookingTime, string order)
+    {
+        if(customerWaitTime < kitchenCookingTime)
+        {
+            string cookedMeal = _kitchen.Confirmation(true, order);
+            int bill = _cafe.OrderDishPrice(cookedMeal);
+            return bill;
+        }
+        else
+        {
+            Console.WriteLine($"Customer: No, Sorry. I am in a hurry. Bye");
+            return 0;
+        }
+    }
+    
+    private int OrderDishPrice(string order)
     {
         if (menuPrice.ContainsKey(order))
         {
