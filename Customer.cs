@@ -8,23 +8,20 @@ public class Customer
         Console.WriteLine($"Customer: Thank you");
         rn = new Random();
     }
-    public string MakeOrders()
+    public string MakeOrders(Dictionary<string, int> menue)
     {
-        Console.WriteLine($"Waiter: Enter your order: ");
-            
+        string order = "";
+        int choose = rn.Next(0, menue.Count+1);
 
-        string order = Console.ReadLine();
-        
-        if (!string.IsNullOrWhiteSpace(order))
-            
+        foreach(string key in menue.Keys)
+        {
+            if(choose == 0)
             {
-                return order;
+                order += key;
             }
-        else
-            {
-                Console.WriteLine("Waiter: Invalid order. Please enter a valid order.");
-                return MakeOrders();
-            }
+            choose--;
+        }
+        return order;
     }
 
     public int WaitingTime()
