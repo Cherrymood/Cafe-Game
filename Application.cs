@@ -19,17 +19,16 @@ class Application
         while(true)
         {
             Console.WriteLine($"Enter your order (or 'q' to quit): ");
-            string order = _customer.MakeOrders();
+            string quit = Console.ReadLine();
+
+            string order = _customer.MakeOrders(_cafe.GiveMenue());
+
             int orderCost = _cafe.OrderDishPrice(order);
             
-            if (order == "q")
+            if (quit == "q")
             {
                 Console.WriteLine($"Waiter: Thank you. Cafe earned {0}", _dayIncome);
                 break;
-            }
-            if (orderCost == 0)
-            {
-                Console.WriteLine($"Waiter: There is no such a dish in our menue");
             }
 
             int cookingTime = _cookingTime.OrderTime(order);
