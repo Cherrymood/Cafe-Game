@@ -36,8 +36,6 @@ class Cafe{
         if (menuPrice.ContainsKey(order))
         {
             int price = menuPrice[order];
-
-            // Perform actions related to the order (e.g., print receipt, start preparation, etc.)
             Console.WriteLine($"Waiter: Ordered {order}. The price: {price} doll.");
             return price;
         }
