@@ -3,6 +3,7 @@ class Kitchen{
     private Dictionary<string, int> timePrepare;
     public Kitchen()
     {
+
         timePrepare = new Dictionary<string, int>
         {
             {"soup", 10},
@@ -27,5 +28,29 @@ class Kitchen{
         Console.WriteLine($"Waiter: Ordered {order}. The time for cooking: {time} min. Will you wait?");
 
         return time;
+    }
+
+    public string Confirmation(bool confirm, string order)
+    {
+        if(confirm)
+        {
+            Console.WriteLine($"Customer: Yes I can wait");
+            return PrepareOrder(order);
+        }
+
+        else
+        {
+            return null;
+        }
+    }
+
+    private string PrepareOrder(string order)
+    {
+        for(int i = 0; i <= timePrepare[order]*10; i++)
+        {
+            i++;
+        }
+        
+        return order;
     }
 }
