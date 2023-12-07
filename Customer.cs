@@ -5,7 +5,6 @@ public class Customer
     private Random rn;
     public Customer()
     {
-        Console.WriteLine($"Customer: Thank you");
         rn = new Random();
     }
     public string MakeOrders(Dictionary<string, int> menue)
@@ -21,6 +20,7 @@ public class Customer
             }
             choose--;
         }
+        Console.WriteLine($"Customer: I want {order}");
         return order;
     }
 
