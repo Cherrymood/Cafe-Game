@@ -1,9 +1,9 @@
 class Kitchen{
    
     private Dictionary<string, int> timePrepare;
+    private TimeSpan _cooking;
     public Kitchen()
     {
-
         timePrepare = new Dictionary<string, int>
         {
             {"soup", 10},
@@ -40,16 +40,15 @@ class Kitchen{
 
         else
         {
-            return null;
+            return "";
         }
     }
 
     private string PrepareOrder(string order)
     {
-        for(int i = 0; i <= timePrepare[order]*10; i++)
-        {
-            i++;
-        }
+        _cooking = new TimeSpan(0, 0, timePrepare[order]);
+        
+        Console.WriteLine($"Waiter: {order} is ready!");
         
         return order;
     }

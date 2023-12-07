@@ -4,6 +4,7 @@ class Application
     private Cafe _cafe;
     private int _dayIncome;
     private Kitchen _kitchen;
+    private int _amountOrders;
 
     public Application()
     {
@@ -12,11 +13,12 @@ class Application
         _customer = new Customer();
         _kitchen = new Kitchen();
         _dayIncome = 0;
+        _amountOrders = 5;
     }
 
     public void StartGame()
     {
-        while(true)
+        for(int i = 0; i < _amountOrders; i++)
         {
             Console.WriteLine($"Enter your order (or 'q' to quit): ");
             string quit = Console.ReadLine();
@@ -25,8 +27,8 @@ class Application
                 Console.WriteLine($"Waiter: Thank you. Cafe earned {0}", _dayIncome);
                 break;
             }
-            
-            string order = _customer.MakeOrders(_cafe.GiveMenue());
+            Dictionary<string, int> menue = _cafe.GiveMenue();
+            string order = _customer.MakeOrders(menue);
             int billToPay = _cafe.GetConfirmation(_customer.WaitingTime(), _kitchen.OrderTime(order),order);
             
             if (billToPay == 0)
@@ -36,8 +38,12 @@ class Application
             }
 
             _dayIncome += _customer.PayBill(billToPay);
-            
-            Console.WriteLine($"Waiter: Thank you. Cafe earned {0}", _dayIncome);
+
+            if(i == 4)
+            {
+                Console.WriteLine($"Waiter: Thank you. Cafe earned {0}", _dayIncome);
+                break;
+            }
         }
     }
 }

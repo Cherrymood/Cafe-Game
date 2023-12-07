@@ -1,14 +1,11 @@
 class Cafe{
    
-    private Dictionary<string, int> menuPrice;
+    private Dictionary<string, int> _menuPrice;
     private Kitchen _kitchen;
-    private Cafe _cafe;
     public Cafe()
     {
         _kitchen = new Kitchen();
-        _cafe = new Cafe();
-
-        menuPrice = new Dictionary<string, int>
+        _menuPrice = new Dictionary<string, int>
         {
             {"soup", 10},
             {"meat", 15},
@@ -28,12 +25,12 @@ class Cafe{
     {
         Console.WriteLine($"Waiter: Here is our menu.");
 
-        foreach (var key in menuPrice.Keys)
+        foreach (var key in _menuPrice.Keys)
         {
             Console.WriteLine(key);
         }
 
-        return menuPrice;
+        return _menuPrice;
     }
     
     public int GetConfirmation(int customerWaitTime, int kitchenCookingTime, string order)
@@ -41,7 +38,7 @@ class Cafe{
         if(customerWaitTime < kitchenCookingTime)
         {
             string cookedMeal = _kitchen.Confirmation(true, order);
-            int bill = _cafe.OrderDishPrice(cookedMeal);
+            int bill = OrderDishPrice(cookedMeal);
             return bill;
         }
         else
@@ -53,9 +50,9 @@ class Cafe{
     
     private int OrderDishPrice(string order)
     {
-        if (menuPrice.ContainsKey(order))
+        if (_menuPrice.ContainsKey(order))
         {
-            int price = menuPrice[order];
+            int price = _menuPrice[order];
             Console.WriteLine($"Waiter: Ordered {order}. The price: {price} doll.");
             return price;
         }
