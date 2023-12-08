@@ -35,7 +35,8 @@ class Cafe{
     
     public int GetConfirmation(int customerWaitTime, int kitchenCookingTime, string order)
     {
-        if(customerWaitTime < kitchenCookingTime)
+        Console.WriteLine($"Waiter: Ordered {order}. The time for cooking: {kitchenCookingTime} min.");
+        if(customerWaitTime >= kitchenCookingTime)
         {
             string cookedMeal = _kitchen.Confirmation(true, order);
             int bill = OrderDishPrice(cookedMeal);
@@ -43,7 +44,7 @@ class Cafe{
         }
         else
         {
-            Console.WriteLine($"Customer: No, Sorry. I am in a hurry. Bye");
+            Console.WriteLine($"Waiter: Sorry, we cannot prepare your order in time. Bye!");
             return 0;
         }
     }

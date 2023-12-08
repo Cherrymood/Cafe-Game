@@ -18,6 +18,8 @@ class Application
 
     public void StartGame()
     {
+        int target = 0;
+
         for(int i = 0; i < _amountOrders; i++)
         {
             Dictionary<string, int> menue = _cafe.GiveMenue();
@@ -26,24 +28,32 @@ class Application
             
             if (billToPay == 0)
             {
-                Console.WriteLine($"Waiter: Thank you. Cafe earned {_dayIncome}");
+                _dayIncome = target;
+                Console.WriteLine($"Waiter: Thank you. Cafe earned {_dayIncome}.");
+                Console.WriteLine($"-----Next customer-----");
                 continue;
             }
 
-            _dayIncome += _customer.PayBill(billToPay);
+            target += _customer.PayBill(billToPay);
 
             if(i == 4)
             {
-                Console.WriteLine($"Waiter: Thank you. Cafe earned {_dayIncome}");
+                _dayIncome = target;
+                Console.WriteLine($"Waiter: Thank you. Cafe earned {_dayIncome}.");
+                Console.WriteLine($"---End game---");
                 break;
             }
+
+            Console.WriteLine($"-----Next customer-----");
 
             Console.WriteLine($"Enter your order (or 'q' to quit): ");
             string quit = Console.ReadLine();
 
             if (quit == "q")
             {
-                Console.WriteLine($"Waiter: Thank you. Cafe earned {_dayIncome}");
+                _dayIncome = target;
+                Console.WriteLine($"Waiter: Thank you. Cafe earned {_dayIncome}.");
+                Console.WriteLine($"-----End game-----");
                 break;
             }
         }
