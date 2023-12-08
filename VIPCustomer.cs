@@ -1,9 +1,9 @@
 using System.Runtime.Intrinsics.Arm;
 
-public class Customer: ICustomer
+public class VIPCustomer: ICustomer
 {
     private Random rn;
-    public Customer()
+    public VIPCustomer()
     {
         rn = new Random();
     }
@@ -20,20 +20,21 @@ public class Customer: ICustomer
             }
             choose--;
         }
-        Console.WriteLine($"Customer: I want {order}, please.");
+        Console.WriteLine($"VIPCustomer: I want {order}, please.");
         return order;
     }
 
     public int WaitingTime()
     {
         int waitTime = rn.Next(0, 16);
-        Console.WriteLine($"Customer: I can not wait more than {waitTime} min.");
+        Console.WriteLine($"VIPCustomer: I can not wait more than {waitTime} min.");
         return waitTime;
     }
 
     public int PayBill(int bill)
     {
-        Console.WriteLine($"Customer: Here is your {bill} doll.");
+        bill = Convert.ToInt32(bill - bill*0.2); 
+        Console.WriteLine($"VIPCustomer: Here is your {bill} doll.");
         return bill;
     }
 }
