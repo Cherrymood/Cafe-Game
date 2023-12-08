@@ -10,7 +10,7 @@ public class Customer
     public string MakeOrders(Dictionary<string, int> menue)
     {
         string order = "";
-        int choose = rn.Next(0, menue.Count+1);
+        int choose = rn.Next(1, menue.Count+1);
 
         foreach(string key in menue.Keys)
         {

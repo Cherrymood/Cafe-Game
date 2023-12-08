@@ -20,28 +20,30 @@ class Application
     {
         for(int i = 0; i < _amountOrders; i++)
         {
-            Console.WriteLine($"Enter your order (or 'q' to quit): ");
-            string quit = Console.ReadLine();
-            if (quit == "q")
-            {
-                Console.WriteLine($"Waiter: Thank you. Cafe earned {0}", _dayIncome);
-                break;
-            }
             Dictionary<string, int> menue = _cafe.GiveMenue();
             string order = _customer.MakeOrders(menue);
             int billToPay = _cafe.GetConfirmation(_customer.WaitingTime(), _kitchen.OrderTime(order),order);
             
             if (billToPay == 0)
             {
-                Console.WriteLine($"Waiter: Thank you. Cafe earned {0}", _dayIncome);
-                break;
+                Console.WriteLine($"Waiter: Thank you. Cafe earned {_dayIncome}");
+                continue;
             }
 
             _dayIncome += _customer.PayBill(billToPay);
 
             if(i == 4)
             {
-                Console.WriteLine($"Waiter: Thank you. Cafe earned {0}", _dayIncome);
+                Console.WriteLine($"Waiter: Thank you. Cafe earned {_dayIncome}");
+                break;
+            }
+
+            Console.WriteLine($"Enter your order (or 'q' to quit): ");
+            string quit = Console.ReadLine();
+
+            if (quit == "q")
+            {
+                Console.WriteLine($"Waiter: Thank you. Cafe earned {_dayIncome}");
                 break;
             }
         }
