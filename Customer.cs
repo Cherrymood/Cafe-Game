@@ -20,19 +20,20 @@ public class Customer
             }
             choose--;
         }
-        Console.WriteLine($"Customer: I want {order}");
+        Console.WriteLine($"Customer: I want {order}, please.");
         return order;
     }
 
     public int WaitingTime()
     {
         int waitTime = rn.Next(0, 16);
-
+        Console.WriteLine($"Customer: I can not wait more than {waitTime} min.");
         return waitTime;
     }
 
     public int PayBill(int bill)
     {
+        Console.WriteLine($"Customer: Here is your {bill} doll.");
         return bill;
     }
 }

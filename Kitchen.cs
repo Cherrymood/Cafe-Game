@@ -22,11 +22,7 @@ class Kitchen{
     }
     public int OrderTime(string order)
     {
-        Console.WriteLine($"Waiter: Kitchen! We have an order for you");
-
         int time = timePrepare[order];
-        Console.WriteLine($"Waiter: Ordered {order}. The time for cooking: {time} min. Will you wait?");
-
         return time;
     }
 
@@ -34,21 +30,19 @@ class Kitchen{
     {
         if(confirm)
         {
-            Console.WriteLine($"Customer: Yes I can wait");
+            Console.WriteLine($"Kitchen: We will prepare your order in time.");
             return PrepareOrder(order);
         }
-
         else
         {
             return "";
         }
     }
-
     private string PrepareOrder(string order)
     {
         _cooking = new TimeSpan(0, 0, timePrepare[order]);
         
-        Console.WriteLine($"Waiter: {order} is ready!");
+        Console.WriteLine($"Kitchen: {order} is ready!");
         
         return order;
     }
