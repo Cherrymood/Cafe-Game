@@ -1,6 +1,6 @@
 using System.Runtime.Intrinsics.Arm;
 
-public class Customer
+public class Customer: ICustomer
 {
     private Random rn;
     public Customer()
