@@ -45,7 +45,7 @@ class Application
 
             target += _customer.PayBill(billToPay);
 
-            if(i == 4)
+            if(i == _amountOrders - 1)
             {
                 _dayIncome = target;
                 Console.WriteLine($"Waiter: Thank you. Cafe earned {_dayIncome}.");

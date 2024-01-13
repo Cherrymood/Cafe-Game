@@ -6,18 +6,18 @@ class Kitchen{
     {
         timePrepare = new Dictionary<string, int>
         {
-            {"soup", 10},
+           {"soup", 10},
             {"meat", 15},
             {"snacks", 2},
             {"salad", 5},
             {"pizza", 12},
             {"water", 1},
-            {"hot drink", 5},
+            {"coffee", 5},
             {"juice", 2},
-            {"cocktail", 5},
+            {"cocao", 5},
             {"burger", 8},
             {"pasta", 11},
-            {"ice Cream", 4}
+            {"cake", 4}
         };
     }
     public int OrderTime(string order)

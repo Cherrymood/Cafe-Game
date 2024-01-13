@@ -21,6 +21,12 @@ public class Customer: ICustomer
             choose--;
         }
         Console.WriteLine($"Customer: I want {order}, please.");
+        
+        if (order == "")
+        {
+            return "juice";
+        }
+
         return order;
     }
 
