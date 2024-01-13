@@ -13,21 +13,21 @@ class Cafe{
             {"salad", 5},
             {"pizza", 12},
             {"water", 1},
-            {"hot drink", 5},
+            {"coffee", 5},
             {"juice", 2},
-            {"cocktail", 5},
+            {"cocao", 5},
             {"burger", 8},
             {"pasta", 11},
-            {"ice Cream", 4}
+            {"cake", 4}
         };
     }
     public Dictionary<string, int> GiveMenue()
     {
         Console.WriteLine($"Waiter: Here is our menu.");
 
-        foreach (var key in _menuPrice.Keys)
+        foreach (KeyValuePair<string, int> position in _menuPrice)
         {
-            Console.WriteLine(key);
+            Console.WriteLine("{0}:\t\t{1}$", position.Key, position.Value);
         }
 
         return _menuPrice;
