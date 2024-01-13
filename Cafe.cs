@@ -1,38 +1,17 @@
 class Cafe{
-   
-    private Dictionary<string, int> _menuPrice;
     private Kitchen _kitchen;
+    private Menue _menue;
     public Cafe()
     {
         _kitchen = new Kitchen();
-        _menuPrice = new Dictionary<string, int>
-        {
-            {"soup", 10},
-            {"meat", 15},
-            {"snacks", 2},
-            {"salad", 5},
-            {"pizza", 12},
-            {"water", 1},
-            {"coffee", 5},
-            {"juice", 2},
-            {"cocao", 5},
-            {"burger", 8},
-            {"pasta", 11},
-            {"cake", 4}
-        };
+        _menue = new Menue();
     }
-    public Dictionary<string, int> GiveMenue()
+
+    public void GiveMenue()
     {
-        Console.WriteLine($"Waiter: Here is our menu.");
-
-        foreach (KeyValuePair<string, int> position in _menuPrice)
-        {
-            Console.WriteLine("{0}:\t\t{1}$", position.Key, position.Value);
-        }
-
-        return _menuPrice;
+        Console.WriteLine($"Waiter: Hello, How are you? Here is our menue");
+        _menue.PrintOutMenue();
     }
-    
     public int GetConfirmation(int customerWaitTime, int kitchenCookingTime, string order)
     {
         Console.WriteLine($"Waiter: Ordered {order}. The time for cooking: {kitchenCookingTime} min.");
@@ -51,16 +30,16 @@ class Cafe{
     
     private int OrderDishPrice(string order)
     {
-        if (_menuPrice.ContainsKey(order))
+        int price = _menue.ReturnPrice(order);
+
+        if (price > 0)
         {
-            int price = _menuPrice[order];
             Console.WriteLine($"Waiter: Ordered {order}. The price: {price} doll.");
-            return price;
         }
         else
         {
-            Console.WriteLine($"Waiter: {order} is not on the menu.");
-            return 0;
+            Console.WriteLine($"Waiter: {order} is not in our menu.");
         }
+        return price;
     }
 }
