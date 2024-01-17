@@ -1,10 +1,10 @@
 class Kitchen{
    
-    private Dictionary<string, int> timePrepare;
+    private Dictionary<string, int> _timePrepare;
     private TimeSpan _cooking;
     public Kitchen()
     {
-        timePrepare = new Dictionary<string, int>
+        _timePrepare = new Dictionary<string, int>
         {
            {"soup", 10},
             {"meat", 15},
@@ -22,7 +22,7 @@ class Kitchen{
     }
     public int OrderTime(string order)
     {
-        int time = timePrepare[order];
+        int time = _timePrepare[order];
         return time;
     }
 
@@ -40,7 +40,7 @@ class Kitchen{
     }
     private string PrepareOrder(string order)
     {
-        _cooking = new TimeSpan(0, 0, timePrepare[order]);
+        _cooking = new TimeSpan(0, 0, _timePrepare[order]);
         
         Console.WriteLine($"Kitchen: {order} is ready!");
         

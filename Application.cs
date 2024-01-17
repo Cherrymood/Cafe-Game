@@ -1,3 +1,5 @@
+
+using System;
 class Application
 {
     private ICustomer _customer;
@@ -15,57 +17,57 @@ class Application
         _amountOrders = 5;
     }
 
-    public void StartGame()
+     public void StartGame()
     {
         int target = 0;
 
-        for(int i = 0; i < _amountOrders; i++)
+        for (int i = 0; i < _amountOrders; i++)
         {
-            if(i % 2 == 0) 
-            {
-                _customer = new Customer();
-            }
-            
-            else
-            {
-                _customer = new VIPCustomer();
-            }
+            _cafe.GiveMenue();
+            HandleCustomer(i, ref target);
+        }
 
-            Dictionary<string, int> menue = _cafe.GiveMenue();
-            string order = _customer.MakeOrders(menue);
-            int billToPay = _cafe.GetConfirmation(_customer.WaitingTime(), _kitchen.OrderTime(order),order);
-            
-            if (billToPay == 0)
-            {
-                _dayIncome = target;
-                Console.WriteLine($"Waiter: Thank you. Cafe earned {_dayIncome}.");
-                Console.WriteLine($"-----Next customer-----");
-                continue;
-            }
+        EndGame(target);
+    }
 
-            target += _customer.PayBill(billToPay);
+    private void HandleCustomer(int orderIndex, ref int target)
+    {
+        _customer = (orderIndex % 2 == 0) ? new Customer() : new VIPCustomer();
 
-            if(i == _amountOrders - 1)
-            {
-                _dayIncome = target;
-                Console.WriteLine($"Waiter: Thank you. Cafe earned {_dayIncome}.");
-                Console.WriteLine($"---End game---");
-                break;
-            }
+        string order = _customer.MakeOrders(orderIndex);
+        int billToPay = _cafe.GetConfirmation(_customer.WaitingTime(), _kitchen.OrderTime(order), order);
 
-            Console.WriteLine($"-----Next customer-----");
+        if (billToPay == 0)
+        {
+            _dayIncome = target;
+            Console.WriteLine($"Waiter: Thank you. Cafe earned {_dayIncome}.");
+            Console.WriteLine("Next Customer");
+            return;
+        }
 
-            Console.WriteLine($"Enter your order (or 'q' to quit): ");
-            string quit = Console.ReadLine();
+        target += _customer.PayBill(billToPay);
 
-            if (quit == "q")
-            {
-                _dayIncome = target;
-                Console.WriteLine($"Waiter: Thank you. Cafe earned {_dayIncome}.");
-                Console.WriteLine($"-----End game-----");
-                break;
-            }
+        if (orderIndex == _amountOrders - 1 || ShouldQuit())
+        {
+            EndGame(target);
+        }
+        else
+        {
+            Console.WriteLine("Next Customer");
         }
     }
-}
 
+    private bool ShouldQuit()
+    {
+        Console.WriteLine("Enter your order (or 'q' to quit): ");
+        string quit = Console.ReadLine();
+        return quit == "q";
+    }
+
+    private void EndGame(int target)
+    {
+        _dayIncome = target;
+        Console.WriteLine($"Waiter: Thank you. Cafe earned {_dayIncome}.");
+        Console.WriteLine("End Game");
+    }
+}
