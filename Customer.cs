@@ -1,39 +1,37 @@
+using System;
+using System.Runtime.CompilerServices;
 using System.Runtime.Intrinsics.Arm;
 
-public class Customer: ICustomer
+public class Customer : ICustomer
 {
     private Random rn;
+
     public Customer()
     {
         rn = new Random();
     }
-    public string MakeOrders(Dictionary<string, int> menue)
-    {
-        string order = "";
-        int choose = rn.Next(1, menue.Count+1);
 
-        foreach(string key in menue.Keys)
+    public string MakeOrders(int orderIndex)
+    {
+        Console.WriteLine($"Customer {orderIndex + 1}: Enter your order (or 'q' to quit): ");
+        
+        string order = Console.ReadLine();
+
+        if (string.IsNullOrEmpty(order))
         {
-            if(choose == 0)
-            {
-                order += key;
-            }
-            choose--;
+            Console.WriteLine("Invalid input. Please try again.");
+            return MakeOrders(orderIndex);
         }
         Console.WriteLine($"Customer: I want {order}, please.");
         
-        if (order == "")
-        {
-            return "juice";
-        }
-
         return order;
     }
+
 
     public int WaitingTime()
     {
         int waitTime = rn.Next(0, 16);
-        Console.WriteLine($"Customer: I can not wait more than {waitTime} min.");
+        Console.WriteLine($"Customer: I cannot wait more than {waitTime} min.");
         return waitTime;
     }
 

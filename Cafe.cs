@@ -17,7 +17,7 @@ class Cafe{
         Console.WriteLine($"Waiter: Ordered {order}. The time for cooking: {kitchenCookingTime} min.");
         if(customerWaitTime >= kitchenCookingTime)
         {
-            string cookedMeal = _kitchen.Confirmation(true, order);
+            string cookedMeal = _kitchen.Confirmation(order);
             int bill = OrderDishPrice(cookedMeal);
             return bill;
         }
@@ -40,6 +40,7 @@ class Cafe{
         {
             Console.WriteLine($"Waiter: {order} is not in our menu.");
         }
+      
         return price;
     }
 }

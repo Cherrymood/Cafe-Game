@@ -1,6 +1,6 @@
 public interface ICustomer
 {
-    string MakeOrders(Dictionary<string, int> menu);
+    string MakeOrders(int orderIndex);
     int WaitingTime();
     int PayBill(int bill);
 }

@@ -1,10 +1,11 @@
-class Kitchen{
-   
-    private Dictionary<string, int> timePrepare;
+public class Kitchen
+{
+    private Dictionary<string, int> _timePrepare;
     private TimeSpan _cooking;
+
     public Kitchen()
     {
-        timePrepare = new Dictionary<string, int>
+        _timePrepare = new Dictionary<string, int>
         {
            {"soup", 10},
             {"meat", 15},
@@ -20,30 +21,46 @@ class Kitchen{
             {"cake", 4}
         };
     }
+
     public int OrderTime(string order)
     {
-        int time = timePrepare[order];
-        return time;
+        if(_timePrepare.ContainsKey(order))
+        {
+            return _timePrepare[order];
+        }
+        return 0;
     }
 
-    public string Confirmation(bool confirm, string order)
+    public int GetOrderTime(string order)
     {
-        if(confirm)
+        if (_timePrepare.ContainsKey(order))
         {
-            Console.WriteLine($"Kitchen: We will prepare your order in time.");
-            return PrepareOrder(order);
+            return _timePrepare[order];
         }
         else
         {
+            throw new ArgumentException($"Kitchen: Error - No preparation time found for {order}.");
+        }
+    }
+
+    public string Confirmation(string order)
+    {
+        try
+        {
+            int preparationTime = GetOrderTime(order);
+            return PrepareOrder(order);
+        }
+        catch (ArgumentException ex)
+        {
+            Console.WriteLine(ex.Message);
             return "";
         }
     }
+
     private string PrepareOrder(string order)
     {
-        _cooking = new TimeSpan(0, 0, timePrepare[order]);
-        
+        _cooking = new TimeSpan(0, 0, _timePrepare[order]);
         Console.WriteLine($"Kitchen: {order} is ready!");
-        
         return order;
     }
 }
