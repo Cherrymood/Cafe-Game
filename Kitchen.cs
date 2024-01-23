@@ -7,7 +7,7 @@ public class Kitchen
     {
         _timePrepare = new Dictionary<string, int>
         {
-            {"soup", 10},
+           {"soup", 10},
             {"meat", 15},
             {"snacks", 2},
             {"salad", 5},

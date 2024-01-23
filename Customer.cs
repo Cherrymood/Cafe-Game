@@ -22,8 +22,8 @@ public class Customer : ICustomer
             Console.WriteLine("Invalid input. Please try again.");
             return MakeOrders(orderIndex);
         }
-
-        Console.WriteLine($"Customer {orderIndex + 1}: I wanna {order}, please");
+        Console.WriteLine($"Customer: I want {order}, please.");
+        
         return order;
     }
 

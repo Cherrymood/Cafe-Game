@@ -36,6 +36,13 @@ class Application
 
         string order = _customer.MakeOrders(orderIndex);
         int billToPay = _cafe.GetConfirmation(_customer.WaitingTime(), _kitchen.OrderTime(order), order);
+      
+            if(i == _amountOrders - 1)
+            {
+                _dayIncome = target;
+                Console.WriteLine($"Waiter: Thank you. Cafe earned {_dayIncome}.");
+                Console.WriteLine($"---End game---");
+                break;
 
         if (billToPay == 0)
         {
