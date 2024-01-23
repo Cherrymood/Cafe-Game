@@ -14,8 +14,19 @@ public class Customer : ICustomer
     public string MakeOrders(int orderIndex)
     {
         Console.WriteLine($"Customer {orderIndex + 1}: Enter your order (or 'q' to quit): ");
-        return Console.ReadLine();
+        
+        string order = Console.ReadLine();
+
+        if (string.IsNullOrEmpty(order))
+        {
+            Console.WriteLine("Invalid input. Please try again.");
+            return MakeOrders(orderIndex);
+        }
+
+        Console.WriteLine($"Customer {orderIndex + 1}: I wanna {order}, please");
+        return order;
     }
+
 
     public int WaitingTime()
     {

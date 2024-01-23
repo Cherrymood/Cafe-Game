@@ -41,7 +41,7 @@ class Application
         {
             _dayIncome = target;
             Console.WriteLine($"Waiter: Thank you. Cafe earned {_dayIncome}.");
-            Console.WriteLine("Next Customer");
+            Console.WriteLine("---Next Customer---");
             return;
         }
 
@@ -53,16 +53,24 @@ class Application
         }
         else
         {
-            Console.WriteLine("Next Customer");
+            Console.WriteLine("---Next Customer---");
         }
     }
 
     private bool ShouldQuit()
+{
+    Console.WriteLine("Enter your order (or 'q' to quit): ");
+    
+    string quit = Console.ReadLine();
+
+    if (string.IsNullOrEmpty(quit))
     {
-        Console.WriteLine("Enter your order (or 'q' to quit): ");
-        string quit = Console.ReadLine();
-        return quit == "q";
+        Console.WriteLine("Invalid input. Please try again.");
+        return ShouldQuit();
     }
+
+    return quit.ToLower() == "q";
+}
 
     private void EndGame(int target)
     {
