@@ -1,6 +1,6 @@
-class Menue{
-
-    public Dictionary<string, int> menue;
+class Menue
+{
+    private Dictionary<string, int> menue;
 
     public Menue()
     {
@@ -20,23 +20,8 @@ class Menue{
             {"cake", 4}
         };
     }
-
-    public void PrintOutMenue()
+    public Dictionary<string,int> GetMenue()
     {
-        foreach (KeyValuePair<string, int> position in menue)
-        {
-            Console.WriteLine("{0}:\t\t{1}$", position.Key, position.Value);
-        }
-    }
-    public int ReturnPrice(string order)
-    {
-        if(menue.ContainsKey(order))
-        {
-            return menue[order];
-        }
-        else
-        {
-            return 0;
-        }
+        return menue;
     }
 }

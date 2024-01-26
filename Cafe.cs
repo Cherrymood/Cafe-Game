@@ -1,4 +1,5 @@
-class Cafe{
+class Cafe
+{
     private Kitchen _kitchen;
     private Menue _menue;
     public Cafe()
@@ -7,14 +8,14 @@ class Cafe{
         _menue = new Menue();
     }
 
-    public void GiveMenue()
+    public Dictionary<string,int> GiveMenue()
     {
         Console.WriteLine($"Waiter: Hello, How are you? Here is our menue");
-        _menue.PrintOutMenue();
+        return _menue.GetMenue();
     }
     public int GetConfirmation(int customerWaitTime, int kitchenCookingTime, string order)
     {
-        Console.WriteLine($"Waiter: Ordered {order}. The time for cooking: {kitchenCookingTime} min.");
+        Console.WriteLine($"Waiter: The time for cooking: {kitchenCookingTime} min.");
         if(customerWaitTime >= kitchenCookingTime)
         {
             string cookedMeal = _kitchen.Confirmation(order);
@@ -30,7 +31,7 @@ class Cafe{
     
     private int OrderDishPrice(string order)
     {
-        int price = _menue.ReturnPrice(order);
+        int price = menue[order];
 
         if (price > 0)
         {
