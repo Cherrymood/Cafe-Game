@@ -1,5 +1,5 @@
-
 using System;
+
 class Application
 {
     private ICustomer _customer;
@@ -17,7 +17,7 @@ class Application
         _amountOrders = 5;
     }
 
-     public void StartGame()
+    public void StartGame()
     {
         int target = 0;
 
@@ -30,23 +30,15 @@ class Application
         EndGame(target);
     }
 
-    private void HandleCustomer(int orderIndex, ref int target)
+    void HandleCustomer(int orderIndex, ref int target)
     {
         _customer = (orderIndex % 2 == 0) ? new Customer() : new VIPCustomer();
 
         string order = _customer.MakeOrders(orderIndex);
         int billToPay = _cafe.GetConfirmation(_customer.WaitingTime(), _kitchen.OrderTime(order), order);
-      
-            if(i == _amountOrders - 1)
-            {
-                _dayIncome = target;
-                Console.WriteLine($"Waiter: Thank you. Cafe earned {_dayIncome}.");
-                Console.WriteLine($"---End game---");
-                break;
 
         if (billToPay == 0)
         {
-            _dayIncome = target;
             Console.WriteLine($"Waiter: Thank you. Cafe earned {_dayIncome}.");
             Console.WriteLine("---Next Customer---");
             return;
@@ -64,22 +56,22 @@ class Application
         }
     }
 
-    private bool ShouldQuit()
-{
-    Console.WriteLine("Enter your order (or 'q' to quit): ");
-    
-    string quit = Console.ReadLine();
-
-    if (string.IsNullOrEmpty(quit))
+    public bool ShouldQuit()
     {
-        Console.WriteLine("Invalid input. Please try again.");
-        return ShouldQuit();
+        Console.WriteLine("Enter your order (or 'q' to quit): ");
+
+        string quit = Console.ReadLine();
+
+        if (string.IsNullOrEmpty(quit))
+        {
+            Console.WriteLine("Invalid input. Please try again.");
+            return ShouldQuit();
+        }
+
+        return quit.ToLower() == "q";
     }
 
-    return quit.ToLower() == "q";
-}
-
-    private void EndGame(int target)
+    public void EndGame(int target)
     {
         _dayIncome = target;
         Console.WriteLine($"Waiter: Thank you. Cafe earned {_dayIncome}.");
