@@ -2,24 +2,30 @@ class Cafe
 {
     private Kitchen _kitchen;
     private Menue _menue;
+    private Waiter _waiter;
+    private Customer _customer;
+    private VIPCustomer _vipCustomer;
+    private Cafe _cafe;
+    private int _dayIncome;
+
     public Cafe()
     {
+        _cafe = new Cafe();
         _kitchen = new Kitchen();
         _menue = new Menue();
+        _waiter = new Waiter();
+        _customer = new Customer();
+        _vipCustomer = new VIPCustomer();
+        _dayIncome = 0;
     }
 
-    public Dictionary<string,int> GiveMenue()
-    {
-        Console.WriteLine($"Waiter: Hello, How are you? Here is our menue");
-        return _menue.GetMenue();
-    }
     public int GetConfirmation(int customerWaitTime, int kitchenCookingTime, string order)
     {
         Console.WriteLine($"Waiter: The time for cooking: {kitchenCookingTime} min.");
         if(customerWaitTime >= kitchenCookingTime)
         {
             string cookedMeal = _kitchen.Confirmation(order);
-            int bill = OrderDishPrice(cookedMeal);
+            int bill = _waiter.TakeOrder(cookedMeal);
             return bill;
         }
         else
@@ -28,20 +34,31 @@ class Cafe
             return 0;
         }
     }
-    
-    private int OrderDishPrice(string order)
+
+    public void HandleCustomer(int orderIndex, ref int target)
     {
+        ICustomer customer;
         int price = menue[order];
 
-        if (price > 0)
+        if (orderIndex % 2 == 0)
         {
-            Console.WriteLine($"Waiter: Ordered {order}. The price: {price} doll.");
+            customer = _customer;
         }
         else
         {
-            Console.WriteLine($"Waiter: {order} is not in our menu.");
+            customer = _vipCustomer;
         }
-      
-        return price;
+
+        string order = customer.MakeOrders(orderIndex);
+        int billToPay = GetConfirmation(customer.WaitingTime(), _kitchen.OrderTime(order), order);
+
+        if (billToPay == 0)
+        {
+            Console.WriteLine($"Waiter: Thank you. Cafe earned {_dayIncome}.");
+            Console.WriteLine("---Next Customer---");
+            return;
+        }
+
+        target += customer.PayBill(billToPay);
     }
 }
