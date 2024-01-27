@@ -1,4 +1,3 @@
-using System;
 
 class Application
 {
@@ -36,7 +35,6 @@ class Application
 
     void HandleCustomer(int orderIndex, ref int target)
     {
-        Console.WriteLine("Enter your order (or 'q' to quit): ");
 
         string quit = Console.ReadLine();
         string order = _customer.MakeOrders(orderIndex);
@@ -62,10 +60,25 @@ class Application
             Console.WriteLine("Invalid input. Please try again.");
             return ShouldQuit();
         }
+    }
+
+    public bool ShouldQuit()
+    {
+        Console.WriteLine("Enter your order (or 'q' to quit): ");
+
+        string quit = Console.ReadLine();
+
+        if (string.IsNullOrEmpty(quit))
+        {
+            Console.WriteLine("Invalid input. Please try again.");
+            return ShouldQuit();
+        }
 
         return quit.ToLower() == "q";
     }
 
+        return quit.ToLower() == "q";
+    }
     public void EndGame(int target)
     {
         _dayIncome = target;
