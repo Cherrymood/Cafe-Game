@@ -1,10 +1,10 @@
 class Menue
 {
-    private Dictionary<string, int> menue;
+    readonly Dictionary<string, int> _menue;
 
     public Menue()
     {
-        menue = new Dictionary<string, int>
+        _menue = new Dictionary<string, int>
         {
             {"soup", 10},
             {"meat", 15},
@@ -22,6 +22,6 @@ class Menue
     }
     public Dictionary<string,int> GetMenue()
     {
-        return menue;
+        return _menue;
     }
 }

@@ -26,8 +26,6 @@ public class Customer : ICustomer
         
         return order;
     }
-
-
     public int WaitingTime()
     {
         int waitTime = rn.Next(0, 16);
