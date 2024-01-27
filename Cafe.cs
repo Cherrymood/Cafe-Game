@@ -18,6 +18,7 @@ class Cafe
         _vipCustomer = new VIPCustomer();
         _dayIncome = 0;
     }
+
     public int GetConfirmation(int customerWaitTime, int kitchenCookingTime, string order)
     {
         Console.WriteLine($"Waiter: The time for cooking: {kitchenCookingTime} min.");
@@ -37,6 +38,7 @@ class Cafe
     public void HandleCustomer(int orderIndex, ref int target)
     {
         ICustomer customer;
+        int price = menue[order];
 
         if (orderIndex % 2 == 0)
         {

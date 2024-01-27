@@ -33,6 +33,25 @@ class Application
     }
 
     public bool ShouldQuit()
+
+    void HandleCustomer(int orderIndex, ref int target)
+    {
+        Console.WriteLine("Enter your order (or 'q' to quit): ");
+
+        string quit = Console.ReadLine();
+        string order = _customer.MakeOrders(orderIndex);
+        int billToPay = _cafe.GetConfirmation(_customer.WaitingTime(), _kitchen.OrderTime(order), order);
+
+        if (string.IsNullOrEmpty(quit))
+        {
+            Console.WriteLine("Invalid input. Please try again.");
+            return ShouldQuit();
+        }
+
+        return quit.ToLower() == "q";
+    }
+  
+    public bool ShouldQuit()
     {
         Console.WriteLine("Enter your order (or 'q' to quit): ");
 
