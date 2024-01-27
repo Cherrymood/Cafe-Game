@@ -4,8 +4,9 @@ class Application
 {
     private ICustomer _customer;
     private Cafe _cafe;
-    private int _dayIncome;
     private Kitchen _kitchen;
+    private PrintOutMenue _printer;
+    private int _dayIncome;
     private int _amountOrders;
 
     public Application()
@@ -13,6 +14,7 @@ class Application
         Console.WriteLine($"Receptionist: Welcome to our Cafe");
         _cafe = new Cafe();
         _kitchen = new Kitchen();
+        _printer = new PrintOutMenue();
         _dayIncome = 0;
         _amountOrders = 5;
     }
@@ -23,37 +25,11 @@ class Application
 
         for (int i = 0; i < _amountOrders; i++)
         {
-            _cafe.GiveMenue();
-            HandleCustomer(i, ref target);
+            _printer.Print();
+            _cafe.HandleCustomer(i, ref target);
         }
 
         EndGame(target);
-    }
-
-    void HandleCustomer(int orderIndex, ref int target)
-    {
-        _customer = (orderIndex % 2 == 0) ? new Customer() : new VIPCustomer();
-
-        string order = _customer.MakeOrders(orderIndex);
-        int billToPay = _cafe.GetConfirmation(_customer.WaitingTime(), _kitchen.OrderTime(order), order);
-
-        if (billToPay == 0)
-        {
-            Console.WriteLine($"Waiter: Thank you. Cafe earned {_dayIncome}.");
-            Console.WriteLine("---Next Customer---");
-            return;
-        }
-
-        target += _customer.PayBill(billToPay);
-
-        if (orderIndex == _amountOrders - 1 || ShouldQuit())
-        {
-            EndGame(target);
-        }
-        else
-        {
-            Console.WriteLine("---Next Customer---");
-        }
     }
 
     public bool ShouldQuit()

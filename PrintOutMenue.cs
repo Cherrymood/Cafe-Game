@@ -3,7 +3,7 @@ class PrintOutMenue : IPrint
     private PrintOutMenue _printer;
     private Menue _menue;
 
-    public PrintOutMenue
+    public PrintOutMenue()
     {
         _printer = new PrintOutMenue();
         _menue = new Menue();
