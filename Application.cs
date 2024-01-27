@@ -1,9 +1,11 @@
+
 class Application
 {
     private ICustomer _customer;
     private Cafe _cafe;
-    private int _dayIncome;
     private Kitchen _kitchen;
+    private PrintOutMenue _printer;
+    private int _dayIncome;
     private int _amountOrders;
 
     public Application()
@@ -11,6 +13,7 @@ class Application
         Console.WriteLine($"Receptionist: Welcome to our Cafe");
         _cafe = new Cafe();
         _kitchen = new Kitchen();
+        _printer = new PrintOutMenue();
         _dayIncome = 0;
         _amountOrders = 5;
     }
@@ -21,37 +24,41 @@ class Application
 
         for (int i = 0; i < _amountOrders; i++)
         {
-            _cafe.GiveMenue();
-            HandleCustomer(i, ref target);
+            _printer.Print();
+            _cafe.HandleCustomer(i, ref target);
         }
 
         EndGame(target);
     }
 
-    private void HandleCustomer(int orderIndex, ref int target)
-    {
-        _customer = (orderIndex % 2 == 0) ? new Customer() : (ICustomer)new VIPCustomer();
+    public bool ShouldQuit()
 
+    void HandleCustomer(int orderIndex, ref int target)
+    {
+
+        string quit = Console.ReadLine();
         string order = _customer.MakeOrders(orderIndex);
         int billToPay = _cafe.GetConfirmation(_customer.WaitingTime(), _kitchen.OrderTime(order), order);
 
-        if (billToPay == 0)
+        if (string.IsNullOrEmpty(quit))
         {
-            _dayIncome = target;
-            Console.WriteLine($"Waiter: Thank you. Cafe earned {_dayIncome}.");
-            Console.WriteLine("---Next Customer---");
-            return;
+            Console.WriteLine("Invalid input. Please try again.");
+            return ShouldQuit();
         }
 
-        target += _customer.PayBill(billToPay);
+        return quit.ToLower() == "q";
+    }
+  
+    public bool ShouldQuit()
+    {
+        Console.WriteLine("Enter your order (or 'q' to quit): ");
 
-        if (orderIndex == _amountOrders - 1 || ShouldQuit())
+        string quit = Console.ReadLine();
+
+        if (string.IsNullOrEmpty(quit))
         {
-            EndGame(target);
-        }
-        else
-        {
-            Console.WriteLine("---Next Customer---");
+            Console.WriteLine("Invalid input. Please try again.");
+            return ShouldQuit();
         }
     }
 
@@ -70,6 +77,8 @@ class Application
         return quit.ToLower() == "q";
     }
 
+        return quit.ToLower() == "q";
+    }
     public void EndGame(int target)
     {
         _dayIncome = target;
@@ -77,4 +86,3 @@ class Application
         Console.WriteLine("End Game");
     }
 }
-
