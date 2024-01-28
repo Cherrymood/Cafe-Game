@@ -32,3 +32,4 @@ _ReSharper*/
 [Bb]uild/
 .svn
 ~$*
+*.sln
