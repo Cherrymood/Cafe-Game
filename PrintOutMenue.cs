@@ -11,7 +11,7 @@ class PrintOutMenue : IPrint
 
         foreach(var kvp in menue)
         {
-            Console.WriteLine("{0} price is {1}", kvp.Key, kvp.Value);
+            Console.WriteLine("{0}  ${1}", kvp.Key, kvp.Value);
         }
     }
 }

@@ -1,16 +1,17 @@
-class Cafe
+class Cafe : ICafe
 {
     private IKitchen _kitchen;
     private IOrderHandler _waiter;
     private ICustomer _customer;
     private ICustomer _vipCustomer;
     private int _dayIncome;
-    public Cafe(IKitchen kitchen, IOrderHandler waiter, ICustomer customer, ICustomer vipCustomer)
+
+    public Cafe()
     {
-        _kitchen = kitchen;
-        _waiter = waiter;
-        _customer = customer;
-        _vipCustomer = vipCustomer;
+        _kitchen = new Kitchen();
+        _waiter = new Waiter();
+        _customer = new Customer();
+        _vipCustomer = new VIPCustomer();
         _dayIncome = 0;
     }
     public int GetBill(int customerWaitTime, int kitchenCookingTime, string order)
@@ -28,20 +29,29 @@ class Cafe
             return 0;
         }
     }
-    public void HandleCustomer(int orderIndex, ref int target)
+    public string HandleCustomer(int orderIndex, ref int target)
     {
         ICustomer customer = (orderIndex % 2 == 0) ? _customer : _vipCustomer;
 
         string order = customer.MakeOrders(orderIndex);
+
+        if (order.ToLower() == "q")
+        {
+            Console.WriteLine("Customer decided to quit.");
+            return "q";
+        }
+
         int billToPay = GetBill(customer.WaitingTime(), _kitchen.GetOrderTime(order), order);
 
         if (billToPay == 0)
         {
             Console.WriteLine($"Waiter: Thank you. Cafe earned {_dayIncome}.");
             Console.WriteLine("---Next Customer---");
-            return;
+            return "";
         }
 
         target += customer.PayBill(billToPay);
+
+        return order;
     }
 }

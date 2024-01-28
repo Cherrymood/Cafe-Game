@@ -10,20 +10,19 @@ class Waiter : IOrderHandler
     {
         Console.WriteLine($"Waiter: Hello, How are you? Here is our menue");
 
-        var menue = _menue.GetMenue();
-        int price = menue[order];
+        var menu = _menue.GetMenue();
 
-        if (price > 0)
+        if (menu.ContainsKey(order))
         {
+            int price = menu[order];
             Console.WriteLine($"Waiter: Ordered {order}. The price: {price} doll.");
+            return price;
         }
         else
         {
             Console.WriteLine($"Waiter: {order} is not in our menu.");
             return 0;
         }
-      
-        return price;
     }
 
 }
