@@ -1,12 +1,10 @@
 class Waiter
 {
     private Menue _menue;
-    private Waiter _waiter;
 
     public Waiter()
     {
         _menue = new Menue();
-        _waiter = new Waiter();
     }
     public int TakeOrder(string order)
     {

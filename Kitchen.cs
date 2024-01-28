@@ -1,7 +1,6 @@
 public class Kitchen
 {
     private Dictionary<string, int> _timePrepare;
-    private TimeSpan _cooking;
 
     public Kitchen()
     {

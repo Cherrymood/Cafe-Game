@@ -5,7 +5,6 @@ class Cafe
     private Customer _customer;
     private VIPCustomer _vipCustomer;
     private int _dayIncome;
-
     public Cafe()
     {
         _kitchen = new Kitchen();
@@ -14,7 +13,7 @@ class Cafe
         _vipCustomer = new VIPCustomer();
         _dayIncome = 0;
     }
-    public int GetConfirmation(int customerWaitTime, int kitchenCookingTime, string order)
+    public int GetBill(int customerWaitTime, int kitchenCookingTime, string order)
     {
         Console.WriteLine($"Waiter: The time for cooking: {kitchenCookingTime} min.");
 
@@ -34,7 +33,7 @@ class Cafe
         ICustomer customer = (orderIndex % 2 == 0) ? _customer : _vipCustomer;
 
         string order = customer.MakeOrders(orderIndex);
-        int billToPay = GetConfirmation(customer.WaitingTime(), _kitchen.GetOrderTime(order), order);
+        int billToPay = GetBill(customer.WaitingTime(), _kitchen.GetOrderTime(order), order);
 
         if (billToPay == 0)
         {

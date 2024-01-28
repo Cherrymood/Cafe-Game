@@ -20,6 +20,7 @@ class Application
         {
             _printer.Print();
             _cafe.HandleCustomer(i, ref target);
+            
             if (ShouldQuit())
             {
                 Console.WriteLine("Quitting game...");
@@ -28,7 +29,6 @@ class Application
         }
         EndGame(target);
     }
-
    private bool ShouldQuit()
 {
     Console.WriteLine("Enter your order (or 'q' to quit): ");
@@ -36,8 +36,6 @@ class Application
 
     return !(string.IsNullOrWhiteSpace(quit) || quit.ToLower() != "q");
 }
-
-
     private void EndGame(int target)
     {
         _dayIncome = target;
