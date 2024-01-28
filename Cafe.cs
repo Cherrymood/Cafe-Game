@@ -1,16 +1,16 @@
 class Cafe
 {
-    private Kitchen _kitchen;
-    private Waiter _waiter;
-    private Customer _customer;
-    private VIPCustomer _vipCustomer;
+    private IKitchen _kitchen;
+    private IOrderHandler _waiter;
+    private ICustomer _customer;
+    private ICustomer _vipCustomer;
     private int _dayIncome;
-    public Cafe()
+    public Cafe(IKitchen kitchen, IOrderHandler waiter, ICustomer customer, ICustomer vipCustomer)
     {
-        _kitchen = new Kitchen();
-        _waiter = new Waiter();
-        _customer = new Customer();
-        _vipCustomer = new VIPCustomer();
+        _kitchen = kitchen;
+        _waiter = waiter;
+        _customer = customer;
+        _vipCustomer = vipCustomer;
         _dayIncome = 0;
     }
     public int GetBill(int customerWaitTime, int kitchenCookingTime, string order)

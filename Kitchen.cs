@@ -1,4 +1,4 @@
-public class Kitchen
+public class Kitchen : IKitchen
 {
     private Dictionary<string, int> _timePrepare;
 

@@ -1,4 +1,4 @@
-class Waiter
+class Waiter : IOrderHandler
 {
     private Menue _menue;
 
