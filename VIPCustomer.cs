@@ -1,3 +1,5 @@
+using System.Runtime.InteropServices;
+
 public class VIPCustomer : ICustomer
 {
     private Random rn;
@@ -10,7 +12,12 @@ public class VIPCustomer : ICustomer
     public string MakeOrders(int orderIndex)
     {
         Console.WriteLine($"VIP Customer {orderIndex + 1}: Enter your VIP order (or 'q' to quit): ");
-        return Console.ReadLine();
+        var order = Console.ReadLine();
+        if(!string.IsNullOrEmpty(order))
+        {
+            return order;
+        }
+        return "";
     }
 
     public int WaitingTime()
