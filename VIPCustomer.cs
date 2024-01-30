@@ -43,17 +43,16 @@ public class VIPCustomer : ICustomer
     }
     return order;
 }
-
     public int WaitingTime()
     {
         int waitTime = rn.Next(0, 16);
         Console.WriteLine($"VIP Customer: I cannot wait more than {waitTime} min.");
         return waitTime;
     }
-
     public int PayBill(int bill)
-    {
-        Console.WriteLine($"VIP Customer: Here is your {bill} doll.");
-        return bill;
-    }
+{
+    int vipBill = (int)Math.Round(bill - bill * 0.2);
+    Console.WriteLine($"VIP Customer: Here is your {vipBill} doll.");
+    return vipBill;
+}
 }
