@@ -63,7 +63,7 @@ public class VIPCustomer : ICustomer
     public int PayBill(int bill)
 {
     int vipBill = (int)Math.Round(bill - bill * 0.2);
-    Console.WriteLine($"VIP Customer: Here is your {vipBill} doll.");
+
     return vipBill;
 }
 }

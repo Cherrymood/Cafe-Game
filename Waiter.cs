@@ -1,20 +1,20 @@
 using System;
+using System.Collections.Generic;
 
-public class Waiter : IOrderHandler
+public class Waiter : IOrderHandler, IOrderBill
 {
-    private string connectionString;
     private DataAccess _db;
+    private List<Dish> _menuItems;
 
-    public Waiter()
+    public Waiter(DataAccess db)
     {
-        _db = new DataAccess(connectionString);
+        _db = db;
+        _menuItems = _db.GetMenu();
     }
 
     public int TakeOrder(string order)
     {
         Console.WriteLine("Waiter: Hello, How are you? Here is our menu");
-
-        var menuItems = _db.GetMenu();
 
         if (string.IsNullOrEmpty(order))
         {
@@ -22,7 +22,7 @@ public class Waiter : IOrderHandler
             return 0;
         }
 
-        foreach (var item in menuItems)
+        foreach (var item in _menuItems)
         {
             if (item.DishName.ToLower() == order.ToLower())
             {
@@ -33,5 +33,22 @@ public class Waiter : IOrderHandler
 
         Console.WriteLine($"Waiter: {order} is not in our menu.");
         return 0;
+    }
+
+    public int OrderBill(string order)
+    {
+        var orderBill = 0;
+
+        foreach (var item in _menuItems)
+        {
+            if (item.DishName.ToLower() == order.ToLower())
+            {
+                orderBill = item.Price;
+                break;
+            }
+        }
+
+        Console.WriteLine($"VIP Customer: Here is your {orderBill} doll.");
+        return orderBill;
     }
 }
