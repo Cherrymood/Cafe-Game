@@ -10,7 +10,11 @@ namespace SqlClient{
 
     public class DataAccess
     {
-        public List<Menue> GetMenue(string dish)
+        public List<Dish> GetDish(string dish)
+        {
+            throw new NotImplementedException();
+        }
+        public Dictionary<string, int> GetMenue()
         {
             throw new NotImplementedException();
         }

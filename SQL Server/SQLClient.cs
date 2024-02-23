@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 
 namespace SqlClient{
-    public class Menue
+    public class Dish
     {
         public int MenueID {get; set;}
         public string MenueName {get; set;}
