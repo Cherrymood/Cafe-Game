@@ -9,7 +9,7 @@ public class Customer : ICustomer
     public Customer(List<Dish> menu)
     {
         rn = new Random();
-        _menu = menu;
+        _menu = menu ?? new List<Dish>(); // Null check and initialization with an empty list
     }
 
     public string MakeOrders(int orderIndex)
@@ -46,7 +46,7 @@ public class Customer : ICustomer
     {
         foreach (var dish in _menu)
         {
-            if (dish.DishName.ToLower() == order)
+            if (dish.DishName != null && dish.DishName.ToLower() == order)
             {
                 return true;
             }
