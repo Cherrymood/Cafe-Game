@@ -4,45 +4,56 @@ using System.Runtime.InteropServices;
 public class VIPCustomer : ICustomer
 {
     private Random rn;
-    private Menue _menue;
+    private List<Dish> _menu;
 
-    public VIPCustomer()
+    public VIPCustomer(List<Dish> menu)
     {
         rn = new Random();
-        _menue = new Menue();
+        _menu = menu;
     }
 
     public string MakeOrders(int orderIndex)
-{
-    string order = null;
-    var menue = _menue.GetMenue();
-
-    while (string.IsNullOrEmpty(order) || !menue.ContainsKey(order))
     {
-        Console.WriteLine($"Customer {orderIndex + 1}: Enter your order (or 'q' to quit): ");
-        order = Console.ReadLine().Trim().ToLower();
+        string order = null;
 
-        if (string.IsNullOrEmpty(order))
+        while (string.IsNullOrEmpty(order) || !IsValidOrder(order))
         {
-            Console.WriteLine("Invalid input. Please try again.");
+            Console.WriteLine($"Customer {orderIndex + 1}: Enter your order (or 'q' to quit): ");
+            order = Console.ReadLine().Trim().ToLower();
+
+            if (string.IsNullOrEmpty(order))
+            {
+                Console.WriteLine("Invalid input. Please try again.");
+            }
+            else if (!IsValidOrder(order) && order != "q")
+            {
+                Console.WriteLine($"Invalid order: {order}. Please choose a valid item from the menu.");
+            }
+            else if (order == "shutdown")
+            {
+                Console.WriteLine("Shutting down the game as requested by the customer.");
+                return "shutdown";
+            }
+            else
+            {
+                Console.WriteLine($"Customer: I want {order}, please.");
+            }
         }
-        else if (!menue.ContainsKey(order) && order != "q")
-        {
-            Console.WriteLine($"Invalid order: {order}. Please choose a valid item from the menu.");
-            return MakeOrders(orderIndex);
-        }
-        else if (order == "shutdown")
-        {
-            Console.WriteLine("Shutting down the game as requested by the customer.");
-            return "shutdown";
-        }
-        else
-        {
-            Console.WriteLine($"Customer: I want {order}, please.");
-        }
+        return order;
     }
-    return order;
-}
+
+    private bool IsValidOrder(string order)
+    {
+        foreach (var dish in _menu)
+        {
+            if (dish.DishName.ToLower() == order)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public int WaitingTime()
     {
         int waitTime = rn.Next(0, 16);
