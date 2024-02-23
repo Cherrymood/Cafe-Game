@@ -1,28 +1,37 @@
-class Waiter : IOrderHandler
+using System;
+
+public class Waiter : IOrderHandler
 {
-    private Menue _menue;
+    private string connectionString;
+    private DataAccess _db;
 
     public Waiter()
     {
-        _menue = new Menue();
+        _db = new DataAccess(connectionString);
     }
+
     public int TakeOrder(string order)
     {
-        Console.WriteLine($"Waiter: Hello, How are you? Here is our menue");
+        Console.WriteLine("Waiter: Hello, How are you? Here is our menu");
 
-        var menu = _menue.GetMenue();
+        var menuItems = _db.GetMenu();
 
-        if (menu.ContainsKey(order))
+        if (string.IsNullOrEmpty(order))
         {
-            int price = menu[order];
-            Console.WriteLine($"Waiter: Ordered {order}. The price: {price} doll.");
-            return price;
-        }
-        else
-        {
-            Console.WriteLine($"Waiter: {order} is not in our menu.");
+            Console.WriteLine("Waiter: Invalid order. Please try again.");
             return 0;
         }
-    }
 
+        foreach (var item in menuItems)
+        {
+            if (item.DishName.ToLower() == order.ToLower())
+            {
+                Console.WriteLine($"Waiter: Ordered {item.DishName}. The price: {item.Price} doll.");
+                return item.Price;
+            }
+        }
+
+        Console.WriteLine($"Waiter: {order} is not in our menu.");
+        return 0;
+    }
 }

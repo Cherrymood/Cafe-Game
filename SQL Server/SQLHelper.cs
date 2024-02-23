@@ -5,13 +5,10 @@ using System.Configuration;
 using System.Collections.Specialized;
 using Microsoft.IdentityModel.Protocols;
 
-namespace SqlClient{
-
-    public static class Helper
+public static class Helper
     {
          public static string GetConnectionString(string name)
         {
             return ConfigurationManager.ConnectionStrings[name].ConnectionString;
         }
     }
-}

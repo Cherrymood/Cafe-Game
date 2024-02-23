@@ -1,19 +1,19 @@
 using System;
+using System.Collections.Generic;
 
 public class PrintOutMenue : IPrint
 {
-    private Menue _menue;
+    private List<Dish> _menu;
 
     public PrintOutMenue(string connectionString)
     {
-        _menue = new Menue(connectionString);
+        DataAccess dataAccess = new DataAccess(connectionString);
+        _menu = dataAccess.GetMenu();
     }
 
     public void Print()
     {
-        var menuItems = _menue.GetMenue();
-
-        foreach(var dish in menuItems)
+        foreach(var dish in _menu)
         {
             Console.WriteLine("Name: {0}, Price: {1}, Description: {2}", dish.DishName, dish.Price, dish.DishDescription);
         }
