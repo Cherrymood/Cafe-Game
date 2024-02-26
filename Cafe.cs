@@ -1,24 +1,40 @@
-class Cafe : ICafe
+using System;
+using System.Collections.Generic;
+
+public class Cafe : ICafe
 {
-    private IKitchen _kitchen;
-    private IOrderHandler _waiter;
-    private ICustomer _customer;
-    private ICustomer _vipCustomer;
+    private readonly IOrderHandler _waiter;
+    private readonly ICustomer _customer;
+    private readonly ICustomer _vipCustomer;
+    private readonly List<Dish> _menuItems;
     private int _dayIncome;
 
-    public Cafe()
+    public Cafe(IOrderHandler waiter, ICustomer customer, ICustomer vipCustomer, List<Dish> menuItems)
     {
-        _kitchen = new Kitchen();
-        _waiter = new Waiter();
-        _customer = new Customer();
-        _vipCustomer = new VIPCustomer();
+        _waiter = waiter;
+        _customer = customer;
+        _vipCustomer = vipCustomer;
+        _menuItems = menuItems;
         _dayIncome = 0;
     }
-    public int GetBill(int customerWaitTime, int kitchenCookingTime, string order)
-    {
-        Console.WriteLine($"Waiter: The time for cooking: {kitchenCookingTime} min.");
 
-        if (customerWaitTime >= kitchenCookingTime)
+    public int GetBill(int customerWaitTime, string order)
+    {
+        Dish selectedDish = _menuItems.Find(dish => dish.DishName.ToLower() == order.ToLower());
+
+        if (selectedDish == null)
+        {
+            Console.WriteLine($"Waiter: Sorry, {order} is not in our menu.");
+            return 0;
+        }
+
+        int? cookingTimeNullable = selectedDish.PrepareTime; // Nullable int
+        int cookingTime = cookingTimeNullable ?? 0; // Assign a default value if cookingTimeNullable is null
+
+
+        Console.WriteLine($"Waiter: The cooking time for {order}: {cookingTime} min.");
+
+        if (customerWaitTime >= cookingTime)
         {
             int bill = _waiter.TakeOrder(order);
             return bill;
@@ -29,6 +45,7 @@ class Cafe : ICafe
             return 0;
         }
     }
+
     public string HandleCustomer(int orderIndex, ref int target)
     {
         ICustomer customer = (orderIndex % 2 == 0) ? _customer : _vipCustomer;
@@ -41,7 +58,7 @@ class Cafe : ICafe
             return "q";
         }
 
-        int billToPay = GetBill(customer.WaitingTime(), _kitchen.GetOrderTime(order), order);
+        int billToPay = GetBill(customer.WaitingTime(), order);
 
         if (billToPay == 0)
         {
