@@ -3,13 +3,11 @@ using System.Collections.Generic;
 
 public class Waiter : IOrderHandler, IOrderBill
 {
-    private DataAccess _db;
-    private List<Dish> _menuItems;
+    private readonly List<Dish> _menuItems;
 
-    public Waiter(DataAccess db)
+    public Waiter(List<Dish> menuItems)
     {
-        _db = db;
-        _menuItems = _db.GetMenu();
+        _menuItems = menuItems;
     }
 
     public int TakeOrder(string order)
@@ -22,33 +20,33 @@ public class Waiter : IOrderHandler, IOrderBill
             return 0;
         }
 
-        foreach (var item in _menuItems)
-        {
-            if (item.DishName.ToLower() == order.ToLower())
-            {
-                Console.WriteLine($"Waiter: Ordered {item.DishName}. The price: {item.Price} doll.");
-                return item.Price;
-            }
-        }
+        var menuItem = _menuItems.Find(item => item.DishName.ToLower() == order.ToLower());
 
-        Console.WriteLine($"Waiter: {order} is not in our menu.");
-        return 0;
+        if (menuItem != null)
+        {
+            Console.WriteLine($"Waiter: Ordered {menuItem.DishName}. The price: {menuItem.Price} doll.");
+            return menuItem.Price ?? throw new InvalidOperationException("Nullable integer is null.");;
+        }
+        else
+        {
+            Console.WriteLine($"Waiter: {order} is not in our menu.");
+            return 0;
+        }
     }
 
     public int OrderBill(string order)
     {
-        var orderBill = 0;
+        var menuItem = _menuItems.Find(item => item.DishName.ToLower() == order.ToLower());
 
-        foreach (var item in _menuItems)
+        if (menuItem != null)
         {
-            if (item.DishName.ToLower() == order.ToLower())
-            {
-                orderBill = item.Price;
-                break;
-            }
+            Console.WriteLine($"VIP Customer: Here is your {menuItem.Price} doll.");
+            return menuItem.Price ?? throw new InvalidOperationException("Nullable integer is null.");;
         }
-
-        Console.WriteLine($"VIP Customer: Here is your {orderBill} doll.");
-        return orderBill;
+        else
+        {
+            Console.WriteLine($"VIP Customer: Sorry, {order} is not in our menu.");
+            return 0;
+        }
     }
 }

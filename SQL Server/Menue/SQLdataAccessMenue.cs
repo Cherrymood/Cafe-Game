@@ -30,6 +30,7 @@ public class DataAccess
                     menuItem.DishName = Convert.ToString(reader["MenuName"]);
                     menuItem.Price = Convert.ToInt32(reader["Price"]);
                     menuItem.DishDescription = Convert.ToString(reader["MenuDescription"]);
+                    menuItem.PrepareTime = Convert.ToInt32(reader["PrepareTime"]);
                     menu.Add(menuItem); // Changed to add menuItem to the menu list
                 }
 

@@ -6,4 +6,5 @@ public class Dish
     public string? DishName { get; set; }
     public int? Price { get; set; }
     public string? DishDescription { get; set; }
+    public int? PrepareTime { get; set; }
 }
