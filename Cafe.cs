@@ -6,12 +6,14 @@ public class Cafe : ICafe
     private readonly IOrderHandler _waiter;
     private readonly ICustomer _customer;
     private readonly ICustomer _vipCustomer;
+    private readonly IOrderBill _cashier;
     private readonly List<Dish> _menuItems;
     private int _dayIncome;
 
-    public Cafe(IOrderHandler waiter, ICustomer customer, ICustomer vipCustomer, List<Dish> menuItems)
+    public Cafe(IOrderHandler waiter, ICustomer customer, ICustomer vipCustomer, List<Dish> menuItems, IOrderBill cashier)
     {
         _waiter = waiter;
+        _cashier = cashier;
         _customer = customer;
         _vipCustomer = vipCustomer;
         _menuItems = menuItems;
@@ -28,8 +30,8 @@ public class Cafe : ICafe
             return 0;
         }
 
-        int? cookingTimeNullable = selectedDish.PrepareTime; // Nullable int
-        int cookingTime = cookingTimeNullable ?? 0; // Assign a default value if cookingTimeNullable is null
+        int? cookingTimeNullable = selectedDish.PrepareTime;
+        int cookingTime = cookingTimeNullable ?? 0;
 
 
         Console.WriteLine($"Waiter: The cooking time for {order}: {cookingTime} min.");

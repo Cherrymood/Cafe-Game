@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-public class Customer : ICustomer
+public class Customer : ICustomer, IIsValidOrder
 {
     private Random rn;
     private List<Dish> _menu;
@@ -9,7 +9,7 @@ public class Customer : ICustomer
     public Customer(List<Dish> menu)
     {
         rn = new Random();
-        _menu = menu ?? new List<Dish>(); // Null check and initialization with an empty list
+        _menu = menu ?? new List<Dish>(); 
     }
 
     public string MakeOrders(int orderIndex)
@@ -42,7 +42,7 @@ public class Customer : ICustomer
         return order;
     }
 
-    private bool IsValidOrder(string order)
+    public bool IsValidOrder(string order)
     {
         foreach (var dish in _menu)
         {

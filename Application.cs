@@ -1,3 +1,5 @@
+using System;
+using System.Threading;
 class Application
 {
     private Cafe _cafe;
@@ -47,7 +49,6 @@ class Application
 
         return !(string.IsNullOrWhiteSpace(quit) || quit.ToLower() != "q");
     }
-
     private void EndGame(int target)
     {
         _dayIncome = target;
