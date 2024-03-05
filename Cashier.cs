@@ -1,26 +1,26 @@
 using System;
-using System.Collections.Generic;
 
 public class Cashier : IOrderBill
 {
-    private readonly List<Dish> _menuItems;
+    private readonly IOrderHandler _waiter;
 
-    public Cashier(List<Dish> menuItems)
+    public Cashier(IOrderHandler waiter)
     {
-        _menuItems = menuItems;
+        _waiter = waiter;
     }
+
     public int OrderBill(string order)
     {
-        var menuItem = _menuItems.Find(item => item.DishName.ToLower() == order.ToLower());
+        int billAmount = _waiter.TakeOrder(order);
 
-        if (menuItem != null)
+        if (billAmount > 0)
         {
-            Console.WriteLine($"VIP Customer: Here is your {menuItem.Price} doll.");
-            return menuItem.Price ?? throw new InvalidOperationException("Nullable integer is null.");;
+            Console.WriteLine($"Cashier: Your bill amount is {billAmount} dollars.");
+            return billAmount;
         }
         else
         {
-            Console.WriteLine($"VIP Customer: Sorry, {order} is not in our menu.");
+            Console.WriteLine($"Cashier: Sorry, {order} is not in our menu.");
             return 0;
         }
     }

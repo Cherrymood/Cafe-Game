@@ -25,7 +25,7 @@ public class Waiter : IOrderHandler
         if (menuItem != null)
         {
             Console.WriteLine($"Waiter: Ordered {menuItem.DishName}. The price: {menuItem.Price} doll.");
-            return menuItem.Price ?? throw new InvalidOperationException("Nullable integer is null.");;
+            return menuItem.Price ?? throw new InvalidOperationException("Nullable integer is null.");
         }
         else
         {
