@@ -1,14 +1,12 @@
 public class Kitchen : IKitchen
 {
-    private Customer _customer;
-
-    public Kitchen(Customer customer)
+    public Kitchen()
     {
-        _customer = customer;
+        Console.WriteLine("Kitchen: We got an new order");
     }
 
-    public int CookingTime(string order)
+    public int CookingTime(Dish order)
     {
-        return  _customer.MakeOrders().PrepareTime;
+        return order.PrepareTime;
     }
 }

@@ -1,22 +1,18 @@
 using System;
 
-public class Waiter : IOrderHandler
+public class Waiter : ITakeOrder
 {
-    private Customer _customer;
-
-    public Waiter(Customer customer)
-    {
-        _customer = customer;
-    }
-
-    public int TakeOrder()
+    private Queue<Dish> _orderQueue;
+    public Waiter(Queue<Dish> orderQueue)
     {
         Console.WriteLine("Waiter: Hello, How are you? Here is our menu");
+        _orderQueue = orderQueue;
+    }
 
-        // Call MakeOrders method of the customer to get the order
-        Dish orderedDish = _customer.MakeOrders();
+    public void TakeOrder(Dish orderedDish, Queue<Dish> _orderQueue)
+    {
+        _orderQueue.Enqueue(orderedDish);
 
         Console.WriteLine($"Waiter: Ordered {orderedDish.DishName}. The price: {orderedDish.Price} dollars.");
-        return orderedDish.Price;
     }
 }

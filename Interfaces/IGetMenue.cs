@@ -1,4 +1,4 @@
 public interface IGetMenue
 {
-    public List<Dish> GetMenu();
+    List<Dish> GetMenu();
 }

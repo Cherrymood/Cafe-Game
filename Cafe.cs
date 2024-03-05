@@ -1,76 +1,72 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 
 public class Cafe : ICafe
 {
-    private readonly IOrderHandler _waiter;
+    private readonly ITakeOrder _waiter;
     private readonly ICustomer _customer;
     private readonly ICustomer _vipCustomer;
     private readonly IOrderBill _cashier;
-    private readonly List<Dish> _menuItems;
+    private readonly IKitchen _kitchen;
+    private Random _rn;
+    private Queue<Dish> _orderQueue;
+    private Queue<ICustomer> _customerQueue;
     private int _dayIncome;
 
-    public Cafe(IOrderHandler waiter, ICustomer customer, ICustomer vipCustomer, List<Dish> menuItems, IOrderBill cashier)
+    public Cafe(ITakeOrder waiter, ICustomer customer, ICustomer vipCustomer, IOrderBill cashier, Queue<Dish> orderQueue, Random rn, IKitchen kitchen, Queue<ICustomer> customerQueue)
     {
+        Console.WriteLine($"Welcome to our Cafe");
+        _customer = customer;
         _waiter = waiter;
         _cashier = cashier;
         _customer = customer;
         _vipCustomer = vipCustomer;
-        _menuItems = menuItems;
+        _kitchen = kitchen;
+        _orderQueue = orderQueue;
+        _customerQueue = customerQueue;
+        _rn = rn;
         _dayIncome = 0;
     }
-
-    public int GetBill(int customerWaitTime, string order)
+    public void HandleCustomer()
     {
-        Dish selectedDish = _menuItems.Find(dish => dish.DishName.ToLower() == order.ToLower());
+        ICustomer customer;
 
-        if (selectedDish == null)
+        int index = _rn.Next(0, 100);
+
+        if (index % 2 == 0)
         {
-            Console.WriteLine($"Waiter: Sorry, {order} is not in our menu.");
-            return 0;
-        }
-
-        int? cookingTimeNullable = selectedDish.PrepareTime;
-        int cookingTime = cookingTimeNullable ?? 0;
-
-
-        Console.WriteLine($"Waiter: The cooking time for {order}: {cookingTime} min.");
-
-        if (customerWaitTime >= cookingTime)
-        {
-            int bill = _waiter.TakeOrder(order);
-            return bill;
+            customer = _customer; // Assign regular customer
         }
         else
         {
-            Console.WriteLine($"Waiter: Sorry, we cannot prepare your order in time. Bye!");
-            return 0;
+            customer = _vipCustomer; // Assign VIP customer
+        }
+
+        Dish order = customer.MakeOrders();
+
+        int customerWaiting = customer.WaitingTime();
+
+        if(customerWaiting >= order.PrepareTime)
+        {
+            _waiter.TakeOrder(order, _orderQueue);
+
+            _customerQueue.Enqueue(customer);
+
+            Console.WriteLine($"Waiter: You will get your order in time!");
         }
     }
 
-    public string HandleCustomer(int orderIndex, ref int target)
+    public void HandleOrder()
     {
-        ICustomer customer = (orderIndex % 2 == 0) ? _customer : _vipCustomer;
+        Dish order = _orderQueue.Dequeue();
 
-        string order = customer.MakeOrders(orderIndex);
+        _kitchen.CookingTime(order);
 
-        if (order.ToLower() == "q")
-        {
-            Console.WriteLine("Customer decided to quit.");
-            return "q";
-        }
+        int bill = _cashier.OrderBill(order);
 
-        int billToPay = GetBill(customer.WaitingTime(), order);
+        var customer = _customerQueue.Dequeue();
 
-        if (billToPay == 0)
-        {
-            Console.WriteLine($"Waiter: Thank you. Cafe earned {_dayIncome}.");
-            Console.WriteLine("---Next Customer---");
-            return "";
-        }
-
-        target += customer.PayBill(billToPay);
-
-        return order;
+        _dayIncome += customer.PayBill(bill);
     }
 }
