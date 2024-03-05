@@ -1,23 +1,22 @@
-using System;using System;
-
 class Application
 {
-    private Cafe _cafe;
-    private IPrint _printer;
+    private readonly Cafe _cafe;
+    private readonly IPrint _printer;
     private int _dayIncome;
     private int _amountOrders;
+    private readonly Random _rn;
 
-    public Application(Cafe cafe, IPrint printer, int amountOrders)
+    public Application()
     {
-        _cafe = cafe;
-        _printer = printer;
+        _cafe = new Cafe();
+        _printer = new PrintOutMenue("Menue");
         _dayIncome = 0;
-        _amountOrders = amountOrders;
+        _rn = new Random();
+        _amountOrders = _rn.Next(0, 20);
     }
 
     public void StartGame()
     {
-
         for (int i = 0; i < _amountOrders; i++)
         {
             _printer.Print();
@@ -30,7 +29,6 @@ class Application
                 return;
             }
         }
-
         EndGame(_dayIncome);
     }
 

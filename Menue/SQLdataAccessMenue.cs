@@ -3,21 +3,23 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 
 public class DataAccess : IGetMenue
+{
+    private readonly string connectionString;
+
+    public DataAccess(string connectionString)
     {
-        private string connectionString;
+        this.connectionString = connectionString;
+    }
 
-        public DataAccess(string connectionString)
+    public List<Dish> GetMenu()
+    {
+        List<Dish> menu = new List<Dish>();
+
+        try
         {
-            this.connectionString = Helper.GetConnectionString("Menue");
-        }
-
-        public List<Dish> GetMenu()
-        {
-            List<Dish> menu = new List<Dish>();
-
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "SELECT * FROM Menu"; 
+                string query = "SELECT * FROM Menu";
                 SqlCommand command = new SqlCommand(query, connection);
 
                 connection.Open();
@@ -25,18 +27,22 @@ public class DataAccess : IGetMenue
 
                 while (reader.Read())
                 {
-                    Dish menuItem = new Dish(); 
+                    Dish menuItem = new Dish();
                     menuItem.DishID = Convert.ToInt32(reader["MenuID"]);
                     menuItem.DishName = Convert.ToString(reader["MenuName"]);
                     menuItem.Price = Convert.ToInt32(reader["Price"]);
                     menuItem.DishDescription = Convert.ToString(reader["MenuDescription"]);
                     menuItem.PrepareTime = Convert.ToInt32(reader["PrepareTime"]);
-                    menu.Add(menuItem); // Changed to add menuItem to the menu list
+                    menu.Add(menuItem);
                 }
-
-                reader.Close();
             }
-
-            return menu;
         }
+        catch (SqlException ex)
+        {
+            Console.WriteLine($"An error occurred: {ex.Message}");
+            // Handle the exception, log it, or rethrow it as needed.
+        }
+
+        return menu;
     }
+}

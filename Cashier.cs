@@ -2,9 +2,9 @@ using System;
 
 public class Cashier : IOrderBill
 {
-    public Cashier(ITakeOrder waiter)
+    public Cashier()
     {
-        Console.WriteLine("Cashier: Hello, have you enjoyed?");
+        Console.WriteLine("Cashier: I am here");
     }
 
     public int OrderBill(Dish order)

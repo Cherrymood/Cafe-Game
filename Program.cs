@@ -2,7 +2,8 @@
 {
     static void Main(string[] args)
     {
-        Application cafe = new Application();
-        cafe.StartGame();
+        Application application = new Application();
+
+        application.StartGame();
     }
 }
