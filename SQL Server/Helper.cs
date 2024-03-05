@@ -7,7 +7,7 @@ using Microsoft.IdentityModel.Protocols;
 
 public static class Helper
     {
-         public static string GetConnectionString(string name)
+        public static string GetConnectionString(string name)
         {
             return ConfigurationManager.ConnectionStrings[name].ConnectionString;
         }

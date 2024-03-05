@@ -3,10 +3,12 @@ using System.Collections.Generic;
 
 public class PrintOutMenue : IPrint
 {
+    private const string Name = "Menue";
     private List<Dish> _menu;
 
-    public PrintOutMenue(string connectionString)
+    public PrintOutMenue(string name)
     {
+        string connectionString = Helper.GetConnectionString(name);
         DataAccess dataAccess = new DataAccess(connectionString);
         _menu = dataAccess.GetMenu();
     }
