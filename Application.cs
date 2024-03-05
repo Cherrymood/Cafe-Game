@@ -1,54 +1,47 @@
-using System;
-using System.Threading;
+using System;using System;
+
 class Application
 {
     private Cafe _cafe;
     private IPrint _printer;
     private int _dayIncome;
     private int _amountOrders;
-    private Waiter _waiter;
-    private Customer _customer;
-    private VIPCustomer _vipCustomer;
-    private Cashier _cashier;
 
-    public Application()
+    public Application(Cafe cafe, IPrint printer, int amountOrders)
     {
-        _cafe = new Cafe(_waiter, _customer, _vipCustomer, new List<Dish>(), _cashier);
-        _printer = new PrintOutMenue("Menue");
+        _cafe = cafe;
+        _printer = printer;
         _dayIncome = 0;
-        _amountOrders = 5;
+        _amountOrders = amountOrders;
     }
+
     public void StartGame()
-{
-    int target = 0;
-
-    for (int i = 0; i < _amountOrders; i++)
     {
-        _printer.Print();
-        string order = _cafe.HandleCustomer(i, ref target);
 
-        if (order.ToLower() == "shutdown")
+        for (int i = 0; i < _amountOrders; i++)
         {
-            Console.WriteLine("Customer requested game shutdown. Shutting down...");
-            return;
+            _printer.Print();
+            _cafe.HandleCustomer();
+            _cafe.HandleOrder();
+
+            if (ShouldQuit())
+            {
+                Console.WriteLine("Quitting game...");
+                return;
+            }
         }
 
-        if (ShouldQuit())
-        {
-            Console.WriteLine("Quitting game...");
-            return;
-        }
+        EndGame(_dayIncome);
     }
 
-    EndGame(target);
-}
     private bool ShouldQuit()
     {
         Console.WriteLine("Enter your order (or 'q' to quit): ");
-        string quit = Console.ReadLine();
+        string quit = Console.ReadLine()?.ToLower().Trim();
 
-        return !(string.IsNullOrWhiteSpace(quit) || quit.ToLower() != "q");
+        return quit == "q";
     }
+
     private void EndGame(int target)
     {
         _dayIncome = target;

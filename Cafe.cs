@@ -1,31 +1,26 @@
-using System;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
-
-public class Cafe : ICafe
+public class Cafe : IHandleCustomer, IHandleOrder
 {
     private readonly ITakeOrder _waiter;
     private readonly ICustomer _customer;
     private readonly ICustomer _vipCustomer;
     private readonly IOrderBill _cashier;
     private readonly IKitchen _kitchen;
-    private Random _rn;
-    private Queue<Dish> _orderQueue;
-    private Queue<ICustomer> _customerQueue;
+    private readonly Queue<Dish> _orderQueue;
+    private readonly Queue<ICustomer> _customerQueue;
+    private readonly Random _rn;
     private int _dayIncome;
 
     public Cafe(ITakeOrder waiter, ICustomer customer, ICustomer vipCustomer, IOrderBill cashier, Queue<Dish> orderQueue, Random rn, IKitchen kitchen, Queue<ICustomer> customerQueue)
     {
         Console.WriteLine($"Welcome to our Cafe");
         _customer = customer;
+        _vipCustomer = vipCustomer;
         _waiter = waiter;
         _cashier = cashier;
-        _customer = customer;
-        _vipCustomer = vipCustomer;
-        _kitchen = kitchen;
         _orderQueue = orderQueue;
         _customerQueue = customerQueue;
         _rn = rn;
+        _kitchen = kitchen;
         _dayIncome = 0;
     }
     public void HandleCustomer()
@@ -59,14 +54,22 @@ public class Cafe : ICafe
 
     public void HandleOrder()
     {
-        Dish order = _orderQueue.Dequeue();
+        if (_orderQueue.Count > 0)
+        {
+            Dish order = _orderQueue.Dequeue();
 
-        _kitchen.CookingTime(order);
+            int cookingTime = _kitchen.CookingTime(order);
 
-        int bill = _cashier.OrderBill(order);
+            // Simulate cooking time
+            Thread.Sleep(cookingTime * 1000);
 
-        var customer = _customerQueue.Dequeue();
+            int bill = _cashier.OrderBill(order);
 
-        _dayIncome += customer.PayBill(bill);
+            if (bill > 0 && _customerQueue.Count > 0)
+            {
+                var customer = _customerQueue.Dequeue();
+                _dayIncome += customer.PayBill(bill);
+            }
+        }
     }
 }
