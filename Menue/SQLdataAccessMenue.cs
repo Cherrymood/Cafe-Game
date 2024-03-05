@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 
-public class DataAccess
+public class DataAccess : IGetMenue
     {
         private string connectionString;
 
