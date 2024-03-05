@@ -1,4 +1,4 @@
-interface IKitchen
+public interface IKitchen
 {
-    public int CookingTime(string order);
+    int CookingTime(Dish order);
 }
