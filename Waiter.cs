@@ -1,36 +1,22 @@
 using System;
-using System.Collections.Generic;
 
 public class Waiter : IOrderHandler
 {
-    private readonly List<Dish> _menuItems;
+    private Customer _customer;
 
-    public Waiter(List<Dish> menuItems)
+    public Waiter(Customer customer)
     {
-        _menuItems = menuItems;
+        _customer = customer;
     }
 
-    public int TakeOrder(string order)
+    public int TakeOrder()
     {
         Console.WriteLine("Waiter: Hello, How are you? Here is our menu");
 
-        if (string.IsNullOrEmpty(order))
-        {
-            Console.WriteLine("Waiter: Invalid order. Please try again.");
-            return 0;
-        }
+        // Call MakeOrders method of the customer to get the order
+        Dish orderedDish = _customer.MakeOrders();
 
-        var menuItem = _menuItems.Find(item => item.DishName.ToLower() == order.ToLower());
-
-        if (menuItem != null)
-        {
-            Console.WriteLine($"Waiter: Ordered {menuItem.DishName}. The price: {menuItem.Price} doll.");
-            return menuItem.Price ?? throw new InvalidOperationException("Nullable integer is null.");
-        }
-        else
-        {
-            Console.WriteLine($"Waiter: {order} is not in our menu.");
-            return 0;
-        }
+        Console.WriteLine($"Waiter: Ordered {orderedDish.DishName}. The price: {orderedDish.Price} dollars.");
+        return orderedDish.Price;
     }
 }

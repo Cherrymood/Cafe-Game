@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-public class Customer : ICustomer, IIsValidOrder
+public class Customer : ICustomer
 {
     private Random rn;
     private List<Dish> _menu;
@@ -12,46 +12,13 @@ public class Customer : ICustomer, IIsValidOrder
         _menu = menu ?? new List<Dish>(); 
     }
 
-    public string MakeOrders(int orderIndex)
+    public Dish MakeOrders()
     {
-        string order = null;
+        // Generate a random index to select a dish from the menu
+        int randomIndex = rn.Next(0, _menu.Count);
 
-        while (string.IsNullOrEmpty(order) || !IsValidOrder(order))
-        {
-            Console.WriteLine($"Customer {orderIndex + 1}: Enter your order (or 'q' to quit): ");
-            order = Console.ReadLine().Trim().ToLower();
-
-            if (string.IsNullOrEmpty(order))
-            {
-                Console.WriteLine("Invalid input. Please try again.");
-            }
-            else if (!IsValidOrder(order) && order != "q")
-            {
-                Console.WriteLine($"Invalid order: {order}. Please choose a valid item from the menu.");
-            }
-            else if (order == "shutdown")
-            {
-                Console.WriteLine("Shutting down the game as requested by the customer.");
-                return "shutdown";
-            }
-            else
-            {
-                Console.WriteLine($"Customer: I want {order}, please.");
-            }
-        }
-        return order;
-    }
-
-    public bool IsValidOrder(string order)
-    {
-        foreach (var dish in _menu)
-        {
-            if (dish.DishName != null && dish.DishName.ToLower() == order)
-            {
-                return true;
-            }
-        }
-        return false;
+        // Return the randomly selected dish
+        return _menu[randomIndex];
     }
 
     public int WaitingTime()

@@ -1,6 +1,6 @@
 public interface ICustomer
 {
-    string MakeOrders(int orderIndex);
+    Dish MakeOrders();
     int WaitingTime();
     int PayBill(int bill);
 }

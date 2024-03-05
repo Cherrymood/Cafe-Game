@@ -2,16 +2,16 @@ using System;
 
 public class Cashier : IOrderBill
 {
-    private readonly IOrderHandler _waiter;
+    private Waiter _waiter;
 
-    public Cashier(IOrderHandler waiter)
+    public Cashier(Waiter waiter)
     {
         _waiter = waiter;
     }
 
     public int OrderBill(string order)
     {
-        int billAmount = _waiter.TakeOrder(order);
+        int billAmount = _waiter.TakeOrder();
 
         if (billAmount > 0)
         {

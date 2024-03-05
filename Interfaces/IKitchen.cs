@@ -1,4 +1,4 @@
 interface IKitchen
 {
-    int GetOrderTime(string order);
+    public int CookingTime(string order);
 }

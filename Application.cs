@@ -9,11 +9,12 @@ class Application
     private Waiter _waiter;
     private Customer _customer;
     private VIPCustomer _vipCustomer;
+    private Cashier _cashier;
 
 
     public Application()
     {
-        _cafe = new Cafe(_waiter, _customer, _vipCustomer, new List<Dish>());
+        _cafe = new Cafe(_waiter, _customer, _vipCustomer, new List<Dish>(), _cashier);
         _printer = new PrintOutMenue("Menue");
         _dayIncome = 0;
         _amountOrders = 5;
