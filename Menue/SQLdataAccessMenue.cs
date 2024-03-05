@@ -8,7 +8,7 @@ public class DataAccess
 
         public DataAccess(string connectionString)
         {
-            this.connectionString = connectionString;
+            this.connectionString = Helper.GetConnectionString("Menue");
         }
 
         public List<Dish> GetMenu()
@@ -17,7 +17,7 @@ public class DataAccess
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "SELECT * FROM Menu"; // Assuming your table name is "Menu"
+                string query = "SELECT * FROM Menu"; 
                 SqlCommand command = new SqlCommand(query, connection);
 
                 connection.Open();
@@ -25,7 +25,7 @@ public class DataAccess
 
                 while (reader.Read())
                 {
-                    Dish menuItem = new Dish(); // Changed variable name to menuItem
+                    Dish menuItem = new Dish(); 
                     menuItem.DishID = Convert.ToInt32(reader["MenuID"]);
                     menuItem.DishName = Convert.ToString(reader["MenuName"]);
                     menuItem.Price = Convert.ToInt32(reader["Price"]);

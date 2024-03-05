@@ -4,11 +4,15 @@ class Application
     private IPrint _printer;
     private int _dayIncome;
     private int _amountOrders;
+    private Waiter _waiter;
+    private Customer _customer;
+    private VIPCustomer _vipCustomer;
+
 
     public Application()
     {
-        _cafe = new Cafe();
-        _printer = new PrintOutMenue();
+        _cafe = new Cafe(_waiter, _customer, _vipCustomer, new List<Dish>());
+        _printer = new PrintOutMenue("Menue");
         _dayIncome = 0;
         _amountOrders = 5;
     }
