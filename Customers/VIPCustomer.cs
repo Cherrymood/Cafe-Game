@@ -6,10 +6,10 @@ public class VIPCustomer : ICustomer
     private Random rn;
     private List<Dish> _menu;
 
-    public VIPCustomer(List<Dish> menu)
+    public VIPCustomer()
     {
         rn = new Random();
-        _menu = menu;
+        _menu = new List<Dish>();
     }
 
     public Dish MakeOrders()

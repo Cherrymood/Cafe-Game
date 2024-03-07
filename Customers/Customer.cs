@@ -6,10 +6,11 @@ public class Customer : ICustomer
     private Random rn;
     private List<Dish> _menu;
 
-    public Customer(List<Dish> menu)
+    public Customer()
     {
+        Console.WriteLine($"Customer: I am here and want to order.");
         rn = new Random();
-        _menu = menu ?? new List<Dish>(); 
+        _menu = new List<Dish>(); 
     }
 
     public Dish MakeOrders()
