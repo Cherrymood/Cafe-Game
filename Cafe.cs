@@ -1,72 +1,54 @@
-public class Cafe : IHandleCustomer, IHandleOrder
+public class Cafe: IHandleCustomer, IHandleOrder
 {
-    private readonly ITakeOrder _waiter;
-    private readonly ICustomer _customer;
-    private readonly ICustomer _vipCustomer;
-    private readonly IOrderBill _cashier;
-    private readonly IKitchen _kitchen;
-    private readonly Queue<Dish> _orderQueue;
-    private readonly Queue<ICustomer> _customerQueue;
-    private readonly Random _rn;
-    private int _dayIncome;
-
     public Cafe()
     {
         Console.WriteLine($"Welcome to our Cafe");
-        _customer = new Customer();
-        _vipCustomer = new VIPCustomer();
-        _waiter = new Waiter();
-        _cashier = new Cashier();
-        _orderQueue = new Queue<Dish>();
-        _customerQueue = new Queue<ICustomer>();
-        _rn = new Random();
-        _kitchen = new Kitchen();
-        _dayIncome = 0;
     }
-    public void HandleCustomer()
+    public void HandleCustomer(Random rn, List<Dish> menu, ICustomer customer, ITakeOrder waiter, Queue<ICustomer> customerQueue, ICustomer vipCustomer, Queue<Dish> orderQueue)
     {
-        ICustomer customer;
-
-        int index = _rn.Next(0, 100);
+        int index = rn.Next(0, 100);
 
         if (index % 2 == 0)
         {
-            customer = _customer; // Assign regular customer
+            customer = customer; // Assign regular customer
         }
         else
         {
-            customer = _vipCustomer; // Assign VIP customer
+            customer = vipCustomer; // Assign VIP customer
         }
 
-        Dish order = customer.MakeOrders();
+        Dish order = customer.MakeOrders(rn, menu);
 
-        int customerWaiting = customer.WaitingTime();
+        int customerWaiting = customer.WaitingTime(rn);
 
         if(customerWaiting >= order.PrepareTime)
         {
-            _waiter.TakeOrder(order, _orderQueue);
+            waiter.TakeOrder(order, orderQueue);
 
-            _customerQueue.Enqueue(customer);
+            customerQueue.Enqueue(customer);
 
             Console.WriteLine($"Waiter: You will get your order in time!");
         }
     }
-    public void HandleOrder()
+    public int HandleOrder(List<Dish> menu, Queue<Dish> orderQueue, IKitchen kitchen, IOrderBill cashier, Queue<ICustomer> customerQueue)
         {
-            if (_orderQueue.Count > 0)
+            
+            int income = 0;
+
+            if (orderQueue.Count > 0)
             {
-                Dish order = _orderQueue.Dequeue();
-                int cookingTime = _kitchen.CookingTime(order);
+                Dish order = orderQueue.Dequeue();
+                int cookingTime = kitchen.CookingTime(order);
 
                 if (cookingTime >= 0)
                 {
                     Thread.Sleep(cookingTime * 1000); // Simulate cooking time
-                    int bill = _cashier.OrderBill(order);
+                    int bill = cashier.OrderBill(order);
 
-                    if (bill > 0 && _customerQueue.Count > 0)
+                    if (bill > 0 && customerQueue.Count > 0)
                     {
-                        var customer = _customerQueue.Dequeue();
-                        _dayIncome += customer.PayBill(bill);
+                        var customer = customerQueue.Dequeue();
+                        income += customer.PayBill(bill);
                     }
                 }
                 else
@@ -78,5 +60,6 @@ public class Cafe : IHandleCustomer, IHandleOrder
             {
                 Console.WriteLine("No orders to handle");
             }
+            return income;
         }
     }

@@ -3,30 +3,39 @@ using System.Runtime.InteropServices;
 
 public class VIPCustomer : ICustomer
 {
-    private Random rn;
-    private List<Dish> _menu;
-
     public VIPCustomer()
     {
-        rn = new Random();
-        _menu = new List<Dish>();
+        Console.WriteLine($"VIPCustomer: I am here and want to order.");
     }
 
-    public Dish MakeOrders()
+    public Dish MakeOrders(Random rn, List<Dish> menu)
     {
         // Generate a random index to select a dish from the menu
-        int randomIndex = rn.Next(0, _menu.Count);
+        int randomIndex = rn.Next(0, menu.Count);
+        int index = 0;
+        Dish order = null;
+
+        foreach(var dish in menu)
+        {
+            if(index == randomIndex)
+            {
+                return dish;
+            }
+        }
 
         // Return the randomly selected dish
-        return _menu[randomIndex];
+        return order;
     }
 
-    public int WaitingTime()
+    public int WaitingTime(Random rn)
     {
         int waitTime = rn.Next(0, 16);
-        Console.WriteLine($"VIP Customer: I cannot wait more than {waitTime} min.");
+        
+        Console.WriteLine($"VIPCustomer: I cannot wait more than {waitTime} min.");
+
         return waitTime;
     }
+
     public int PayBill(int bill)
 {
     int vipBill = (int)Math.Round(bill - bill * 0.2);
