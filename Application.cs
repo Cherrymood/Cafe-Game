@@ -2,26 +2,42 @@ class Application
 {
     private readonly Cafe _cafe;
     private readonly IPrint _printer;
+    private readonly ITakeOrder _waiter;
+    private readonly ICustomer _customer;
+    private readonly ICustomer _vipCustomer;
+    private readonly IOrderBill _cashier;
+    private readonly IKitchen _kitchen;
+    private readonly Queue<Dish> _orderQueue;
+    private readonly Queue<ICustomer> _customerQueue;
+    private readonly DataAccess _getMenu;
+    private readonly List<Dish> _menu;
+    private readonly Random _rn;
     private int _dayIncome;
     private int _amountOrders;
-    private readonly Random _rn;
 
     public Application()
     {
         _cafe = new Cafe();
-        _printer = new PrintOutMenue("Menue");
-        _dayIncome = 0;
+        _customer = new Customer();
+        _vipCustomer = new VIPCustomer();
+        _waiter = new Waiter();
+        _cashier = new Cashier();
+        _orderQueue = new Queue<Dish>();
+        _customerQueue = new Queue<ICustomer>();
+        _getMenu = new DataAccess();
+        _menu = _getMenu.GetMenu();
         _rn = new Random();
-        _amountOrders = _rn.Next(0, 20);
+        _kitchen = new Kitchen();
+        _dayIncome = 0;
     }
 
     public void StartGame()
     {
         for (int i = 0; i < _amountOrders; i++)
         {
-            _printer.Print();
-            _cafe.HandleCustomer();
-            _cafe.HandleOrder();
+            _printer.Print(_menu);
+            _cafe.HandleCustomer(_rn, _menu, _customer, _waiter, _customerQueue, _vipCustomer, _orderQueue);
+            _dayIncome += _cafe.HandleOrder(_menu, _orderQueue, _kitchen, _cashier, _customerQueue);
 
             if (ShouldQuit())
             {
