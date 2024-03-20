@@ -1,6 +1,6 @@
 public interface ICustomer
 {
-    Dish MakeOrders();
-    int WaitingTime();
+    Dish MakeOrders(Random rn, List<Dish> menu);
+    int WaitingTime(Random rn);
     int PayBill(int bill);
 }

@@ -1,22 +1,18 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Configuration;
 
 public class DataAccess : IGetMenue
 {
-    private readonly string connectionString;
-
-    public DataAccess(string connectionString)
-    {
-        this.connectionString = connectionString;
-    }
-
     public List<Dish> GetMenu()
     {
         List<Dish> menu = new List<Dish>();
 
         try
         {
+            var connectionString = ConfigurationManager.ConnectionStrings["Menu"].ConnectionString; 
+
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 string query = "SELECT * FROM Menu";

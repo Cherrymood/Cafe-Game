@@ -3,26 +3,21 @@ using System.Collections.Generic;
 
 public class Customer : ICustomer
 {
-    private Random rn;
-    private List<Dish> _menu;
-
     public Customer()
     {
         Console.WriteLine($"Customer: I am here and want to order.");
-        rn = new Random();
-        _menu = new List<Dish>(); 
     }
 
-    public Dish MakeOrders()
+    public Dish MakeOrders(Random rn, List<Dish> menu)
     {
         // Generate a random index to select a dish from the menu
-        int randomIndex = rn.Next(0, _menu.Count);
+        int randomIndex = rn.Next(0, menu.Count);
 
         // Return the randomly selected dish
-        return _menu[randomIndex];
+        return menu[randomIndex];
     }
 
-    public int WaitingTime()
+    public int WaitingTime(Random rn)
     {
         int waitTime = rn.Next(0, 16);
         

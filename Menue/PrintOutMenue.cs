@@ -3,20 +3,11 @@ using System.Collections.Generic;
 
 public class PrintOutMenue : IPrint
 {
-    private readonly DataAccess _db;
-
-    public PrintOutMenue(string connectionString)
+    public void Print(List<Dish> menu)
     {
-        _db = new DataAccess(connectionString);
-    }
-
-    public void Print()
-    {
-        List<Dish> menu = _db.GetMenu();
-
-        foreach (var dish in menu)
+        foreach (Dish dish in menu)
         {
-            Console.WriteLine("Name: {0}, Price: {1}, Description: {2}", dish.DishName, dish.Price, dish.DishDescription);
+            Console.WriteLine($"Name: {dish.DishName}, Price: {dish.Price}, Description: {dish.DishDescription}");
         }
     }
 }

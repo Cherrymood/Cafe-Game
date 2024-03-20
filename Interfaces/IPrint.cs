@@ -2,5 +2,5 @@ using System.Runtime.CompilerServices;
 
 public interface IPrint
 {
-    void Print();
+    void Print(List<Dish> menu);
 }
