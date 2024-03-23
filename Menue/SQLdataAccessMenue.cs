@@ -12,10 +12,10 @@ public class DataAccess : IGetMenue
         try
         {
             var connectionString = ConfigurationManager.ConnectionStrings["Menu"].ConnectionString; 
-
+            
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "SELECT * FROM Menu";
+                string query = "SELECT * FROM dbo.Menue";
                 SqlCommand command = new SqlCommand(query, connection);
 
                 connection.Open();
@@ -24,10 +24,10 @@ public class DataAccess : IGetMenue
                 while (reader.Read())
                 {
                     Dish menuItem = new Dish();
-                    menuItem.DishID = Convert.ToInt32(reader["MenuID"]);
-                    menuItem.DishName = Convert.ToString(reader["MenuName"]);
+                    menuItem.DishID = Convert.ToInt32(reader["MenueID"]);
+                    menuItem.DishName = Convert.ToString(reader["MenueName"]);
                     menuItem.Price = Convert.ToInt32(reader["Price"]);
-                    menuItem.DishDescription = Convert.ToString(reader["MenuDescription"]);
+                    menuItem.DishDescription = Convert.ToString(reader["MenueDescription"]);
                     menuItem.PrepareTime = Convert.ToInt32(reader["PrepareTime"]);
                     menu.Add(menuItem);
                 }

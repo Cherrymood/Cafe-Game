@@ -3,16 +3,13 @@ using System.Collections.Generic;
 
 public class Customer : ICustomer
 {
-    public Customer()
-    {
-        Console.WriteLine($"Customer: I am here and want to order.");
-    }
 
     public Dish MakeOrders(Random rn, List<Dish> menu)
     {
         // Generate a random index to select a dish from the menu
         int randomIndex = rn.Next(0, menu.Count);
 
+        Console.WriteLine($"Customer: Hello, I want to order{menu[randomIndex].DishName}, please");
         // Return the randomly selected dish
         return menu[randomIndex];
     }

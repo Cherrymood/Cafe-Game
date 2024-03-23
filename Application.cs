@@ -1,7 +1,7 @@
 class Application
 {
     private readonly Cafe _cafe;
-    private readonly IPrint _printer;
+    private readonly PrintOutMenue _printer;
     private readonly ITakeOrder _waiter;
     private readonly ICustomer _customer;
     private readonly ICustomer _vipCustomer;
@@ -28,32 +28,18 @@ class Application
         _menu = _getMenu.GetMenu();
         _rn = new Random();
         _kitchen = new Kitchen();
+        _amountOrders = _rn.Next(5, 10);
         _dayIncome = 0;
+        _printer = new PrintOutMenue();
     }
 
     public void StartGame()
     {
-        for (int i = 0; i < _amountOrders; i++)
-        {
-            _printer.Print(_menu);
-            _cafe.HandleCustomer(_rn, _menu, _customer, _waiter, _customerQueue, _vipCustomer, _orderQueue);
-            _dayIncome += _cafe.HandleOrder(_menu, _orderQueue, _kitchen, _cashier, _customerQueue);
+        var _orderQueue = _cafe.HandleCustomer(_rn, _menu, _customer, _waiter, _customerQueue, _vipCustomer, _orderQueue, _printer);
+        
+        _dayIncome += _cafe.HandleOrder(_menu, _orderQueue, _kitchen, _cashier, _customerQueue);
 
-            if (ShouldQuit())
-            {
-                Console.WriteLine("Quitting game...");
-                return;
-            }
-        }
         EndGame(_dayIncome);
-    }
-
-    private bool ShouldQuit()
-    {
-        Console.WriteLine("Enter your order (or 'q' to quit): ");
-        string quit = Console.ReadLine()?.ToLower().Trim();
-
-        return quit == "q";
     }
 
     private void EndGame(int target)
