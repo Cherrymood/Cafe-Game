@@ -22,7 +22,6 @@ public class Cafe: IHandleCustomer, IHandleOrder
         return customerQueue;
     }
     
-
     
     public Queue<Dish> HandleCustomer(Queue<ICustomer> customerQueue, Random rn, List<Dish> menu, ITakeOrder waiter, PrintOutMenue printer)
 
