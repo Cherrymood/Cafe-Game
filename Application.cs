@@ -35,11 +35,13 @@ class Application
 
     public void StartGame()
     {
-        var _orderQueue = _cafe.HandleCustomer(_rn, _menu, _customer, _waiter, _customerQueue, _vipCustomer, _orderQueue, _printer);
-        
-        _dayIncome += _cafe.HandleOrder(_menu, _orderQueue, _kitchen, _cashier, _customerQueue);
+        _cafe.HandleCustomer(_customerQueue, _rn, _menu, _customer, _waiter,  _vipCustomer, _printer, _amountOrders);
+
+        _dayIncome += _cafe.HandleOrder(_menu, _orderQueue, _kitchen, _cashier, _customerQueue, _rn);
 
         EndGame(_dayIncome);
+
+        Quit();
     }
 
     private void EndGame(int target)
@@ -47,5 +49,11 @@ class Application
         _dayIncome = target;
         Console.WriteLine($"Waiter: Thank you. Cafe earned {_dayIncome}.");
         Console.WriteLine("End Game");
+    }
+
+    public void Quit()
+    {
+        Console.WriteLine("Quitting the application...");
+        Environment.Exit(0); // Exit the application with a success code
     }
 }

@@ -9,7 +9,6 @@ public class Customer : ICustomer
         // Generate a random index to select a dish from the menu
         int randomIndex = rn.Next(0, menu.Count);
 
-        Console.WriteLine($"Customer: Hello, I want to order{menu[randomIndex].DishName}, please");
         // Return the randomly selected dish
         return menu[randomIndex];
     }

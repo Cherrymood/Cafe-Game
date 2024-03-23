@@ -33,6 +33,13 @@ public class Cafe: IHandleCustomer, IHandleOrder
             waiter.TakeOrder(order, orderQueue, _printer, menu);
 
             customerQueue.Enqueue(cust);
+
+            Console.WriteLine("                                               ");
+
+            Console.WriteLine("***********************************************");
+            
+            Console.WriteLine("                                               ");
+
         }
 
         return orderQueue;
