@@ -1,14 +1,12 @@
 class Application
 {
     private readonly Cafe _cafe;
-    private readonly IPrint _printer;
+    private readonly PrintOutMenue _printer;
     private readonly ITakeOrder _waiter;
     private readonly ICustomer _customer;
     private readonly ICustomer _vipCustomer;
     private readonly IOrderBill _cashier;
     private readonly IKitchen _kitchen;
-    private readonly Queue<Dish> _orderQueue;
-    private readonly Queue<ICustomer> _customerQueue;
     private readonly DataAccess _getMenu;
     private readonly List<Dish> _menu;
     private readonly Random _rn;
@@ -22,38 +20,40 @@ class Application
         _vipCustomer = new VIPCustomer();
         _waiter = new Waiter();
         _cashier = new Cashier();
-        _orderQueue = new Queue<Dish>();
-        _customerQueue = new Queue<ICustomer>();
         _getMenu = new DataAccess();
         _menu = _getMenu.GetMenu();
         _rn = new Random();
         _kitchen = new Kitchen();
+        _amountOrders = _rn.Next(5, 10);
         _dayIncome = 0;
+        _printer = new PrintOutMenue();
     }
 
     public void StartGame()
     {
-        for (int i = 0; i < _amountOrders; i++)
+        var customerQ = _cafe.CustomerQueue ( _customer, _vipCustomer, _rn, _amountOrders);
+
+        var customerOrderQ = new Queue<ICustomer>(customerQ);
+
+        var orderQ = _cafe.HandleCustomer( customerOrderQ, _rn, _menu, _waiter, _printer);
+
+        while(orderQ.Count > 0 && customerQ.Count > 0)
         {
-            _printer.Print(_menu);
-            _cafe.HandleCustomer(_rn, _menu, _customer, _waiter, _customerQueue, _vipCustomer, _orderQueue);
-            _dayIncome += _cafe.HandleOrder(_menu, _orderQueue, _kitchen, _cashier, _customerQueue);
+            var client = customerQ.Dequeue();
+            var newOrder = orderQ.Dequeue();
 
-            if (ShouldQuit())
+            var permit = _cafe.KitchenHandleOrder(newOrder, _kitchen, client, _rn);
+
+            if(permit)
             {
-                Console.WriteLine("Quitting game...");
-                return;
+                _dayIncome += _cafe.CashierHandleOrder(newOrder, _cashier, client);
             }
+
         }
+
         EndGame(_dayIncome);
-    }
 
-    private bool ShouldQuit()
-    {
-        Console.WriteLine("Enter your order (or 'q' to quit): ");
-        string quit = Console.ReadLine()?.ToLower().Trim();
-
-        return quit == "q";
+        Quit();
     }
 
     private void EndGame(int target)
@@ -61,5 +61,11 @@ class Application
         _dayIncome = target;
         Console.WriteLine($"Waiter: Thank you. Cafe earned {_dayIncome}.");
         Console.WriteLine("End Game");
+    }
+
+    public void Quit()
+    {
+        Console.WriteLine("Quitting the application...");
+        Environment.Exit(0); // Exit the application with a success code
     }
 }

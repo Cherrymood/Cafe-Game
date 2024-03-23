@@ -2,15 +2,14 @@ using System;
 
 public class Waiter : ITakeOrder
 {
-    public Waiter()
+    public void TakeOrder(Dish orderedDish, Queue<Dish> _orderQueue, PrintOutMenue _printer, List<Dish> _menu)
     {
-        Console.WriteLine("Waiter: Hello, How are you? Here is our menu");
-    }
+       Console.WriteLine("Waiter: Hello, How are you? Here is our menu");
 
-    public void TakeOrder(Dish orderedDish, Queue<Dish> _orderQueue)
-    {
-        _orderQueue.Enqueue(orderedDish);
+        _printer.Print(_menu);
 
-        Console.WriteLine($"Waiter: Ordered {orderedDish.DishName}. The price: {orderedDish.Price} dollars.");
+       _orderQueue.Enqueue(orderedDish);
+
+        Console.WriteLine($"Waiter: Ordered {orderedDish.DishName}. Great choise! {orderedDish.DishDescription}");
     }
 }

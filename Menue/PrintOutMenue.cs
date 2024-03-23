@@ -7,7 +7,9 @@ public class PrintOutMenue : IPrint
     {
         foreach (Dish dish in menu)
         {
-            Console.WriteLine($"Name: {dish.DishName}, Price: {dish.Price}, Description: {dish.DishDescription}");
+            Console.WriteLine($"{dish.DishName}\tIt costs: {dish.Price}");
+            
+            Console.WriteLine($"------------------------------------------");
         }
     }
 }
