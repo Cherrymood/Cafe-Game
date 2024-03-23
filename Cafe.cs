@@ -47,17 +47,15 @@ public class Cafe: IHandleCustomer, IKitchenHandleOrder, ICustomerQueue, ICashie
     {
         int cookingTime = kitchen.CookingTime(order);
 
-        var clientWaiting = customer.WaitingTime(rn);
+        int clientWaiting = customer.WaitingTime(rn);
 
         if(clientWaiting < cookingTime)
 
         {
             return false;
         }
-        else
-        {
-            return true;
-        }
+
+        return true;
     }
 
     public int CashierHandleOrder(Dish order, IOrderBill cashier, ICustomer customer)

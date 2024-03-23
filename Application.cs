@@ -33,9 +33,23 @@ class Application
     {
         var customerQ = _cafe.CustomerQueue ( _customer, _vipCustomer, _rn, _amountOrders);
 
-        var orderQ = _cafe.HandleCustomer( customerQ, _rn, _menu, _waiter, _printer);
+        var customerOrderQ = new Queue<ICustomer>(customerQ);
 
-        _dayIncome += _cafe.HandleOrder(_menu, orderQ, _kitchen, _cashier, customerQ, _rn);
+        var orderQ = _cafe.HandleCustomer( customerOrderQ, _rn, _menu, _waiter, _printer);
+
+        while(orderQ.Count > 0 && customerQ.Count > 0)
+        {
+            var client = customerQ.Dequeue();
+            var newOrder = orderQ.Dequeue();
+
+            var permit = _cafe.KitchenHandleOrder(newOrder, _kitchen, client, _rn);
+
+            if(permit)
+            {
+                _dayIncome += _cafe.CashierHandleOrder(newOrder, _cashier, client);
+            }
+
+        }
 
         EndGame(_dayIncome);
 

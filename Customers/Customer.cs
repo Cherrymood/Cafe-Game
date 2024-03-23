@@ -15,7 +15,7 @@ public class Customer : ICustomer
 
     public int WaitingTime(Random rn)
     {
-        int waitTime = rn.Next(0, 16);
+        int waitTime = rn.Next(2, 16);
         
         Console.WriteLine($"Customer: I cannot wait more than {waitTime} min.");
 
