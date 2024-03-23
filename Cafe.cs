@@ -1,4 +1,4 @@
-public class Cafe: IHandleCustomer, IHandleOrder
+public class Cafe: IHandleCustomer, IKitchenHandleOrder, ICustomerQueue, ICashierHandleOrder
 {
     public Cafe()
     {
@@ -22,7 +22,6 @@ public class Cafe: IHandleCustomer, IHandleOrder
         return customerQueue;
     }
     
-    
     public Queue<Dish> HandleCustomer(Queue<ICustomer> customerQueue, Random rn, List<Dish> menu, ITakeOrder waiter, PrintOutMenue printer)
 
     {
@@ -44,33 +43,27 @@ public class Cafe: IHandleCustomer, IHandleOrder
         return orderQueue;
     }
 
-    public int HandleOrder(List<Dish> menu, Queue<Dish> orderQueue, IKitchen kitchen, IOrderBill cashier, Queue<ICustomer> customerQueue, Random rn)
+    public bool KitchenHandleOrder(Dish order, IKitchen kitchen, ICustomer customer, Random rn)
+    {
+        int cookingTime = kitchen.CookingTime(order);
+
+        var clientWaiting = customer.WaitingTime(rn);
+
+        if(clientWaiting < cookingTime)
+
         {
-            
-            int income = 0;
-
-            while (orderQueue.Count > 0)
-            {
-                Dish order = orderQueue.Dequeue();
-
-                int cookingTime = kitchen.CookingTime(order);
-
-                var client = customerQueue.Dequeue();
-
-                var clientWaiting = client.WaitingTime(rn);
-
-                if(clientWaiting < cookingTime)
-                {
-                    return 0;
-                }
-
-                else
-                {
-                    int bill = cashier.OrderBill(order);
-
-                    income += client.PayBill(bill);
-                }
-            }
-            return income;
+            return false;
+        }
+        else
+        {
+            return true;
         }
     }
+
+    public int CashierHandleOrder(Dish order, IOrderBill cashier, ICustomer customer)
+    {
+        int bill = cashier.OrderBill(order);
+
+        return customer.PayBill(bill);
+    }
+}

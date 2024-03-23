@@ -1,5 +1,4 @@
 public interface IHandleCustomer
 {
-   Queue<Dish> HandleCustomer(Queue<ICustomer> customerQueue, Random rn, List<Dish> menu, ITakeOrder waiter, PrintOutMenue _printer);
-
+    Queue<ICustomer> CustomerQueue (ICustomer customer, ICustomer vipCustomer, Random _rn, int _amountOrders);
 }
