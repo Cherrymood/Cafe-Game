@@ -4,47 +4,47 @@ public class Cafe: IHandleCustomer, IHandleOrder
     {
         Console.WriteLine($"Welcome to our Cafe");
     }
-    public Queue<Dish> HandleCustomer(Queue<ICustomer> customerQueue, Random rn, List<Dish> menu, ICustomer customer, ITakeOrder waiter, ICustomer vipCustomer, PrintOutMenue _printer, int _amountOrders)
+
+    public Queue<ICustomer> CustomerQueue (ICustomer customer, ICustomer vipCustomer, Random _rn, int _amountOrders)
     {
-        int index = rn.Next(0, 100);
         
-        Queue<Dish> orderQueue = new Queue<Dish>();
+        var customerQueue = new Queue<ICustomer>();
+        
+        for (int i = 0; i < _amountOrders; i++)
+        {
+            // Decide whether to add a regular customer or a VIP customer
+            ICustomer selectedCustomer = _rn.Next(0, 2) == 0 ? customer : vipCustomer;
 
-        for(int i = 0; i < _amountOrders; i++){
-
-            if (index % 2 == 0)
-            {
-                customer = customer; // Assign regular customer
-            }
-            else
-            {
-                customer = vipCustomer; // Assign VIP customer
-            }
-
-            customerQueue.Enqueue(customer);
+            // Enqueue the selected customer
+            customerQueue.Enqueue(selectedCustomer);
         }
 
-        while(customerQueue.Count > 0)
+        return customerQueue;
+    }
+    
+
+    
+    public Queue<Dish> HandleCustomer(Queue<ICustomer> customerQueue, Random rn, List<Dish> menu, ITakeOrder waiter, PrintOutMenue printer)
+
+    {
+        Queue<Dish> orderQueue = new Queue<Dish>();
+
+        while (customerQueue.Count > 0)
         {
             var cust = customerQueue.Dequeue();
 
             Dish order = cust.MakeOrders(rn, menu);
 
-            waiter.TakeOrder(order, orderQueue, _printer, menu);
-
-            customerQueue.Enqueue(cust);
+            waiter.TakeOrder(order, orderQueue, printer, menu);
 
             Console.WriteLine("                                               ");
-
             Console.WriteLine("***********************************************");
-            
             Console.WriteLine("                                               ");
-
         }
 
         return orderQueue;
-
     }
+
     public int HandleOrder(List<Dish> menu, Queue<Dish> orderQueue, IKitchen kitchen, IOrderBill cashier, Queue<ICustomer> customerQueue, Random rn)
         {
             

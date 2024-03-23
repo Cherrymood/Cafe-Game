@@ -7,8 +7,6 @@ public class Waiter : ITakeOrder
        Console.WriteLine("Waiter: Hello, How are you? Here is our menu");
 
         _printer.Print(_menu);
-       
-       Thread.Sleep(1000);
 
        _orderQueue.Enqueue(orderedDish);
 

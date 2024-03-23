@@ -4,7 +4,12 @@ public class Kitchen : IKitchen
     {
         Console.WriteLine("Kitchen: We got an new order");
 
-        Thread.Sleep(1000); // Simulate cooking time
+       while(order.PrepareTime > 0)
+       {
+            order.PrepareTime--;
+       } // Simulate cooking time
+
+        Console.WriteLine($"Kitchen: {order.DishName} is ready!");
 
         return order.PrepareTime;
     }
